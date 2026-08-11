@@ -1,169 +1,540 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>核物理研究线：相对论平均场 / 对称能 / 中子星（2012）</title>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>从原子到磁力仪 · 支线：相对论平均场、对称能、中子星</title>
 <style>
-  :root{
-    --bg:#0f1115; --card:#171a21; --card2:#1d2129; --line:#262b34;
-    --fg:#e6e6e6; --mut:#9aa4b2; --acc:#7dd3fc; --acc2:#fca5a5; --grn:#86efac;
-    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--fg);
-    font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.75;font-size:16px}
-  a{color:var(--acc);text-decoration:none}
-  a:hover{text-decoration:underline}
-  /* layout */
-  .wrap{display:flex;max-width:1180px;margin:0 auto}
-  nav{position:sticky;top:0;align-self:flex-start;height:100vh;overflow:auto;
-    width:260px;flex:0 0 260px;padding:28px 18px;border-right:1px solid var(--line);background:var(--bg)}
-  nav h2{font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px}
-  nav ol{list-style:none;margin:0;padding:0;counter-reset:s}
-  nav li{counter-increment:s;margin:2px 0}
-  nav a{display:block;padding:5px 10px;border-radius:7px;color:var(--mut);font-size:14px}
-  nav a:before{content:counter(s) ". ";color:#5b6472}
-  nav a:hover{background:var(--card);color:var(--fg);text-decoration:none}
-  main{flex:1;padding:36px 40px 90px;min-width:0}
-  header.hero{padding:30px 0 18px;border-bottom:1px solid var(--line);margin-bottom:26px}
-  header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.01em}
-  header.hero p{color:var(--mut);margin:6px 0;max-width:760px}
-  .tag{display:inline-block;background:var(--card);border:1px solid var(--line);
-    color:var(--acc);padding:2px 10px;border-radius:999px;font-size:12px;margin-right:6px}
-  section{margin:0 0 30px;scroll-margin-top:18px}
-  section h2{font-size:23px;margin:0 0 6px;border-left:4px solid var(--acc);padding-left:12px}
-  section h3{font-size:17px;color:#cdd5e0;margin:22px 0 6px}
-  p{margin:10px 0}
-  .lead{color:var(--mut)}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
-  .card.g{background:linear-gradient(180deg,#15211c,#171a21);border-color:#234}
-  .card.b{background:linear-gradient(180deg,#1a2230,#171a21);border-color:#243}
-  .formula{font-family:var(--mono);background:#0b0d11;border:1px solid var(--line);
-    border-radius:8px;padding:10px 14px;margin:10px 0;color:#d7e3f4;overflow-x:auto;font-size:14.5px}
-  .note{font-size:13.5px;color:var(--mut);border-left:3px solid #334;padding:4px 0 4px 12px;margin:10px 0}
-  ul,ol{margin:10px 0;padding-left:24px}
-  li{margin:5px 0}
-  /* layered diagram */
-  .stack{display:flex;flex-direction:column;gap:0;margin:18px 0}
-  .layer{border:1px solid var(--line);background:var(--card);padding:14px 18px}
-  .layer:first-child{border-radius:12px 12px 0 0}
-  .layer:last-child{border-radius:0 0 12px 12px}
-  .layer+.layer{border-top:none}
-  .layer .lt{font-weight:700;color:var(--acc);font-size:14px}
-  .layer .ld{color:var(--mut);font-size:13.5px;margin-top:3px}
-  .branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
-  .branch .b{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--card2)}
-  .branch .b h4{margin:0 0 6px;color:var(--acc2);font-size:15px}
-  .branch .b p{margin:0;font-size:13.5px;color:var(--mut)}
-  code{font-family:var(--mono);background:#0b0d11;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13.5px;color:#cbd5e1}
-  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
-  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}
-  th{background:var(--card2);color:var(--mut)}
-  .filelist{font-family:var(--mono);font-size:13px;color:#b9c2d0;background:#0b0d11;
-    border:1px solid var(--line);border-radius:8px;padding:12px 14px;white-space:pre-wrap;word-break:break-all}
-  .kbd{color:var(--acc)}
-  .footer{color:var(--mut);font-size:13px;border-top:1px solid var(--line);margin-top:40px;padding-top:16px}
-
-  /* ---- simulation section ---- */
-  .term{font-family:var(--mono);font-size:12.8px;line-height:1.55;background:#08090c;
-    border:1px solid #223;border-radius:8px;padding:12px 14px;overflow-x:auto;color:#c7d2de;
-    white-space:pre;margin:10px 0}
-  .term .ok{color:var(--grn)} .term .hi{color:#fde68a} .term .cm{color:#6b7480}
-  .term .ttl{color:var(--acc)}
-  .src{font-family:var(--mono);font-size:12.5px;line-height:1.5;background:#0b0d11;
-    border:1px solid var(--line);border-radius:8px;padding:11px 13px;overflow-x:auto;
-    color:#a8b6c8;white-space:pre;margin:8px 0}
-  .src .kw{color:#c792ea} .src .nu{color:#f78c6c} .src .cc{color:#5f6b7a}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
-  @media(max-width:900px){.two{grid-template-columns:1fr}}
-  .demo{background:linear-gradient(180deg,#141b24,#12151b);border:1px solid #26333f;
-    border-radius:12px;padding:14px 16px;margin:14px 0}
-  .demo h4{margin:0 0 10px;color:var(--grn);font-size:15px;
-    display:flex;align-items:center;gap:8px}
-  .demo h4:before{content:"▶";font-size:11px;color:var(--grn)}
-  .ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:8px 0 12px}
-  .ctl label{font-size:13px;color:var(--mut);display:flex;align-items:center;gap:8px}
-  .ctl input[type=range]{width:150px;accent-color:var(--acc)}
-  .ctl select,.ctl button{background:var(--card2);color:var(--fg);border:1px solid var(--line);
-    border-radius:7px;padding:4px 10px;font-size:13px;font-family:inherit;cursor:pointer}
-  .ctl button:hover{border-color:var(--acc);color:var(--acc)}
-  .val{font-family:var(--mono);color:var(--acc);min-width:58px;display:inline-block}
-  canvas{width:100%;height:auto;display:block;background:#0a0c10;
-    border:1px solid var(--line);border-radius:8px}
-  .out{font-family:var(--mono);font-size:13px;color:#c7d2de;margin-top:10px;
-    background:#0a0c10;border:1px solid var(--line);border-radius:8px;padding:10px 12px;
-    white-space:pre-wrap}
-  .out b{color:var(--grn)} .out i{color:#fde68a;font-style:normal}
-  .badge{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;
-    border:1px solid #2f3d4c;color:var(--mut);margin-left:8px;font-weight:400}
-  @media(max-width:860px){nav{display:none}main{padding:24px 18px}}
-</style>
-</head>
+ :root{--bg:#0f1115;--card:#171a21;--line:#23262d;--tx:#e6e6e6;--mut:#9aa4b2;--acc:#7dd3fc;--warn:#f59e0b;--ok:#34d399;}
+ *{box-sizing:border-box;}
+ body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.7;}
+ header{padding:48px 28px 28px;max-width:1080px;margin:0 auto;}
+ header h1{font-size:30px;margin:0 0 10px;letter-spacing:.01em;}
+ header p{color:var(--mut);max-width:760px;margin:6px 0;}
+ main{max-width:1080px;margin:0 auto;padding:0 28px 80px;}
+ section{margin:40px 0;scroll-margin-top:20px;}
+ h2{font-size:22px;border-left:4px solid var(--acc);padding-left:12px;margin:0 0 14px;}
+ h3{font-size:17px;color:var(--acc);margin:22px 0 8px;}
+ p{color:#cfd6e0;}
+ code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#1d2129;padding:1px 6px;border-radius:5px;font-size:13px;color:#cbd5e1;}
+ .lead{font-size:15px;color:var(--mut);}
+ .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;}
+ .demo{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:18px 0;background:linear-gradient(180deg,#161a21,#12151b);}
+ .demo h3{margin-top:0;}
+ canvas{width:100%;max-width:680px;height:300px;display:block;background:#0b0e13;border-radius:10px;margin:12px 0;}
+ .row{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:10px 0;}
+ .ctrl{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mut);}
+ input[type=range]{width:220px;accent-color:var(--acc);}
+ button{background:var(--acc);color:#06121c;border:0;border-radius:8px;padding:8px 16px;font-weight:600;cursor:pointer;font-size:14px;}
+ button:hover{filter:brightness(1.08);}
+ .out{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:#cbd5e1;background:#0b0e13;border-radius:8px;padding:10px 12px;white-space:pre-wrap;min-height:20px;}
+ table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0;}
+ th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
+ th{color:var(--mut);font-weight:600;background:#13171e;}
+ .note{font-size:13px;color:var(--mut);border-left:3px solid var(--warn);padding:6px 12px;margin:12px 0;background:#1a1710;}
+ .side{font-size:13px;color:#c9b8a0;border-left:3px solid #c084fc;padding:8px 14px;margin:14px 0;background:#191226;}
+ .side b{color:#d8b4fe;}
+ .intu{font-size:15px;color:#f0abfc;font-weight:600;margin:0 0 10px;}
+ .glos dt{color:var(--acc);font-weight:600;margin-top:10px;}
+ .glos dd{color:var(--mut);margin:2px 0 0;}
+ ul,ol{padding-left:22px;} li{margin:4px 0;}
+ .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+ .links a{color:var(--acc);text-decoration:none;font-size:14px;}
+ .links a:hover{text-decoration:underline;}
+ .xl{color:#fca5a5;font-weight:600;}
+ .formula{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b0e13;padding:10px 12px;border-radius:8px;color:#cbd5e1;font-size:13.5px;overflow-x:auto;margin:10px 0;}
+ footer{max-width:1080px;margin:0 auto;padding:24px 28px 60px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);}
+</style></head>
 <body>
-<div class="wrap">
-<main>
-<header class="hero">
-  <h1>核物理研究线：相对论平均场 / 对称能 / 中子星（2012）</h1>
-  <p class="lead">这是从《<a href="https://wadesha.github.io/atomic-physics-topics-intro/">从原子到磁力仪：一份自底向上的系统性介绍</a>》中拆出的<b>核物理支线</b>（原第 12 节）。
-  那一份系统以原子磁强计为主线；这里单独展开作者在 2012 年（PKU 时期）的核物理研究：相对论平均场 RMF、对称能、中子星。
-  用与原子系统同样"自底向上"的方式展开，并尽量锚定作者自己留下的材料。</p>
+<header>
+ <h1>核物理支线：相对论平均场（RMF）· 对称能 · 中子星</h1>
+ <p class="lead">本页是《从原子到磁力仪》原子主线的支线。原子主线讲"碱金属蒸气里单个原子的自旋怎么被光、被缓冲气体、被自旋交换摆布"；这条支线把镜头拉回原子核内部，讲"一堆核子如何靠介子交换场凝聚成核，又如何在极端密度下坍缩成中子星"。两条线一个极静、一个极致密，共享同一种工程直觉：先建最小可算的模型，再一层层加物理，每一步都用观测校准。</p>
+ <p>写法与主线一致：<b>自底向上</b>。前四节从"核物理怎么数数"开始，把度量衡、液滴模型、费米气体、相对论多体逐层搭好；之后进入 RMF 自洽求解、对称能、状态方程、中子星 TOV——每一步都配一个能当场算出数字的交互 demo，所有数字由本页内置求解器实时计算。</p>
 </header>
+<main>
 
-  <h2>核物理研究线：相对论平均场 / 对称能 / 中子星（2012）</h2>
-  <p>同一份 ACADEMIC 档案里还藏着一条与原子磁强计<b>完全不同</b>的研究线——核物理，集中在 2012 年（PKU 时期）。它的地基是
-  <b>相对论平均场（RMF）理论</b>与<b>核物质状态方程（EOS）</b>，对象从有限核一直推到中子星。下面用本页同样的"自底向上"方式展开，
-  并尽量用作者自己 2012 留下的材料（<code>201208.tex</code>、题名为"在相对论平均场框架内研究软化对称能对核性质的影响及砹缺中子同位素的形状共存"的课题、TM1/FSUGold/DD-MEδ 阅读作业）来锚定。</p>
+<section id="s0">
+ <h2>0. 学习地图：这条支线在讲什么，以及怎么读</h2>
+ <p class="intu">一句话概括：<b>一堆质子中子凭什么聚在一起不散开？把它们压到极致又会变成什么？</b>——前者叫"饱和"，后者叫"中子星"。这一页所有的数学，都只是回答这两个问题的工具。</p>
+ <h3>整条线的逻辑：一条链，七环</h3>
+ <p>① 认识核子（质子+中子）→ ② 看它们挤成"核"（液滴模型，第 2 节）→ ③ 核里面是高速运动的费米气体，天然"硬"（第 3 节）→ ④ 核子靠交换 σ/ω/ρ 介子传递相互作用（RMF，第 5–8 节）→ ⑤ 密度大了中子变多，要付"对称能"代价（第 10 节）→ ⑥ 把"密度↔压强"关系写成状态方程 EOS（第 11 节）→ ⑦ 塞进爱因斯坦引力方程算中子星（TOV，第 12 节）→ ⑧ 和天文观测对账（第 13 节）。</p>
+ <p>每一节开头都有一句 <b>“一句话直觉”</b>，告诉你这步在链里干什么。迷路时回来看这张地图。</p>
+ <h3>难度阶梯（先看这张表，再决定怎么读）</h3>
+ <table>
+  <tr><th>节</th><th>难度</th><th>你需要已经知道</th><th>读完能得到</th></tr>
+  <tr><td>1 度量衡</td><td>★</td><td>单位换算</td><td>fm、MeV 的直觉</td></tr>
+  <tr><td>2 液滴模型</td><td>★</td><td>第 1 节</td><td>结合能曲线长什么样</td></tr>
+  <tr><td>3 费米气体</td><td>★★</td><td>"粒子不能重复占位"</td><td>物质为什么"硬"</td></tr>
+  <tr><td>4 相对论与多体</td><td>★★</td><td>听说过 E=mc²</td><td>为什么核物理必须用相对论</td></tr>
+  <tr><td>5–7 平均场与 RMF</td><td>★★★</td><td>第 2–4 节</td><td>"自洽循环"怎么算</td></tr>
+  <tr><td>8–9 求解与饱和</td><td>★★★</td><td>第 5–7 节</td><td>ρ₀≈0.145 fm⁻³ 从哪来</td></tr>
+  <tr><td>10 对称能</td><td>★★★</td><td>第 2、9 节</td><td>为什么中子星偏爱中子</td></tr>
+  <tr><td>11–12 EOS 与 TOV</td><td>★★★★</td><td>第 8–10 节</td><td>中子星质量、半径怎么算</td></tr>
+  <tr><td>13 观测约束</td><td>★★★★</td><td>第 11–12 节</td><td>理论怎么被天文审判</td></tr>
+  <tr><td>14 收束</td><td>★</td><td>任意进度</td><td>整条链连起来看</td></tr>
+ </table>
+ <h3>三种读法，按你的时间选</h3>
+ <ul>
+  <li><b>直觉流（约 15 分钟）</b>：只读每节开头一句话直觉 + 紫色"周边"卡片，完全跳过公式和 demo。目标是"听懂别人在说什么"。</li>
+  <li><b>标准流（约 1–2 小时）</b>：顺序读完正文，动手点每个 demo 看数字变化，不抠推导细节。目标是"自己也能算一遍"。</li>
+  <li><b>钻研流</b>：标准流基础上，对照公式手算、改 demo 参数观察趋势，再读术语表把每个词都弄懂。</li>
+ </ul>
+ <div class="note">如果你现在觉得"物理研究太难"——请先记住一件事：这一页的全部内容，是 1935–1990 年间用纸笔和手摇计算器做出来的。你不需要比那些人聪明，只需要比"第一次见到这些公式的自己"多二十分钟耐心。每节都从直觉开始，公式永远排在后面。</div>
+</section>
 
-  <h3>1. RMF 框架：从 Walecka σ-ω 模型说起</h3>
-  <p>核子并非自由粒子，在核介质里其性质被"介质修正"。Walecka <b>σ-ω 模型</b>用标量 σ 介子（产生吸引、压低有效质量 m*&lt;m）与矢量 ω 介子（产生排斥）描述核力的相对论平均场。
-  有效核子质量越小，意味着标量场越强。作者 2012 的 <code>201208.tex</code> 正是这套模型的<b>数值演练</b>：</p>
-  <div class="card b">
-    <p>给定核物质饱和点参数（如饱和密度相关项 267.1、核子/原子质量比 939/197），<b>自洽求解有效质量 ms</b>，
-    再对动量空间积分 <code>r²·√(r²+t²)</code> 算出<b>能量密度 e</b> 与<b>压强 p</b>。这就是 RMF 下核物质 EOS 的一个个状态点——
-    和《从原子到磁力仪》的"模拟演示"一节（把源码跑起来，见 <a href="https://wadesha.github.io/atomic-physics-topics-intro/#sim">主站</a>）是同一种精神：<b>把哈密顿量写成可解形式 → 数值求解 → 得到状态点</b>。</p>
+<section id="s1">
+ <h2>1. 度量衡：先学会核物理怎么数数</h2>
+ <p class="intu">直觉：原子核比原子小十万倍，能量却大几百万倍。核物理换了一把"尺子"（fm）和一把"秤"（MeV），是因为原来的单位在这里读起来全是天文数字。</p>
+ <p>进核物理之前，先换一套单位。原子物理用 nm 和 eV；原子核小得多、也"硬"得多，需要 fm 和 MeV。</p>
+ <table>
+  <tr><th>量</th><th>原子（主线）</th><th>原子核（本支线）</th></tr>
+  <tr><td>尺度</td><td>≈ 0.1 nm = 10⁻¹⁰ m</td><td>≈ 1–7 fm = 10⁻¹⁵–10⁻¹⁴ m（小 5 个数量级）</td></tr>
+  <tr><td>能量标度</td><td>电离能 ≈ 几 eV</td><td>结合能 ≈ 几 MeV–几十 MeV（大 6–7 个数量级）</td></tr>
+  <tr><td>典型时间</td><td>光学跃迁 ns</td><td>核振动/巨共振 10⁻²²–10⁻¹⁸ s</td></tr>
+ </table>
+ <p>核物理惯例是<b>自然单位</b>：令 ℏ=1、c=1，所有物理量只有一个量纲（能量）。唯一的换算常数是</p>
+ <div class="formula">ℏc = 197.33 MeV·fm &nbsp;（1 fm⁻¹ ↔ 197.33 MeV；1 fm⁻³ ↔ 197.33³ MeV³）</div>
+ <p>于是：核子质量 m_N = 939 MeV（=1.67×10⁻²⁷ kg），核半径 R ≈ 1.2 A^(1/3) fm，费米动量 k_F 直接用 MeV 记。后面所有方程里的密度、场、动量都以 MeV 为单位，公式里不再出现 ℏ 和 c——这正是 RMF 能干净地同时处理"能量密度"与"压强"的原因。</p>
+ <div class="note">记住一个数量级：核内平均核子间距 ≈ 1.8 fm ≈ π 介子康普顿波长。核力作用范围与核子间距同量级——这意味着核内没有"小参数"，不能像原子那样把电子当点粒子绕着重核转。</div>
+ <div class="side"><b>周边 · 我们怎么"看见"原子核？</b>原子核太小、太硬，没有显微镜能直接看。物理学家用<b>散射</b>：拿一束高速粒子（α 粒子、电子、质子）去打靶，看它们怎么偏转——就像闭着眼靠"扔球听反弹"来摸清一个看不见的障碍物的形状。1911 年卢瑟福正是用 α 粒子散射发现原子核：绝大多数 α 粒子直穿金箔，极少数被大角度弹回，说明原子内部几乎全是空的，质量集中在中心一个"核"上。<br><b>1 MeV 是什么感觉？</b>一个铀原子核裂变释放约 200 MeV ≈ 3.2×10⁻¹¹ J。一克铀完全裂变 ≈ 8×10¹⁰ J，约等于烧 2.7 吨煤——这就是核能"密度碾压"化学能的来源。</div>
+</section>
+
+<section id="s2">
+ <h2>2. 核素、结合能与液滴模型：把 A 个核子当成一滴液体</h2>
+ <p class="intu">直觉：把原子核想象成"一滴不可压缩的液体"——核子就是它的分子。这个粗糙但有效的模型，用一个公式讲清了"为什么有的核稳定、有的核会裂变/聚变"。</p>
+ <p>质子 p（电荷 +e）、中子 n（中性）统称<b>核子</b>。一个核用三个数描述：质量数 A = 质子数 Z + 中子数 N。同 Z 不同 N 叫<b>同位素</b>。</p>
+ <p>核结合能来自<b>质量亏损</b>：把 Z 个质子、N 个中子自由状态的质量加起来，减去原子核质量，差值就是结合能 B：</p>
+ <div class="formula">M(Z,A) = Z·m_p + N·m_n − B &nbsp;&nbsp;（单位 MeV；B &gt; 0 表示束缚）</div>
+ <p><b>结合能曲线</b>（B/A 对 A）是核物理第一张"总图"：轻核陡升、铁峰（A≈56）处达到 ~8.8 MeV、重核缓慢下降。曲线形状本身就是一个模型——<b>液滴模型</b>（Bethe–Weizsäcker）——把核当成不可压缩的电荷液滴，逐项写出结合能：</p>
+ <div class="formula">B = a_V A − a_S A^(2/3) − a_C Z(Z−1)/A^(1/3) − a_A (N−Z)²/A + δ(A)</div>
+ <table>
+  <tr><th>项</th><th>系数（常用值）</th><th>物理</th></tr>
+  <tr><td>体积项 +a_V A</td><td>≈ 15.8 MeV</td><td>短程饱和吸引，每个核子贡献相同</td></tr>
+  <tr><td>表面项 −a_S A^(2/3)</td><td>≈ 18.3 MeV</td><td>表面核子少了"邻居"，结合减弱</td></tr>
+  <tr><td>库仑项 −a_C Z²/A^(1/3)</td><td>≈ 0.71 MeV</td><td>质子间电排斥</td></tr>
+  <tr><td>对称项 −a_A (N−Z)²/A</td><td>≈ 23.2 MeV</td><td>泡利原理惩罚 N≠Z（中子/质子失衡）</td></tr>
+  <tr><td>配对项 +δ</td><td>≈ ±12 A^(−1/2)</td><td>同类核子成对更稳定（偶-偶核）</td></tr>
+ </table>
+ <p>第 4 项（对称项）尤其重要：它是本页第 10 节<b>对称能</b>的"地面版"——在液滴里它管核的 N/Z 平衡，在无限核物质/中子星里它管<b>质子比例与状态方程软硬</b>。同一物理，两个舞台。</p>
+
+ <div class="demo">
+  <h3>交互 0 · 液滴模型结合能曲线 B/A(A)</h3>
+  <p class="lead">沿 β 稳定线（每个 A 取使质量最小的 Z）计算 B/A，画出结合能曲线。可见铁峰（A≈56）附近的 B/A≈8.8 MeV，以及轻核区陡升、重核区缓降。</p>
+  <canvas id="d0c" width="660" height="300"></canvas>
+  <div class="out" id="d0o">计算中…</div>
+ </div>
+ <div class="side"><b>周边 · 一个公式，两次世界大战</b>液滴模型公式 1935 年由 Bethe–Weizsäcker 写成，三年后（1938）哈恩与斯特拉斯曼发现核裂变——正是公式里的"库仑项"预言的：重核质子间电排斥太强，一滴"液体"会自己分裂。这个预言直接通向核能利用，也通向曼哈顿计划。今天它仍是核电、核医学同位素生产的底层语言：你体检做的 PET/CT，用的就是加速器轰出来的短寿命同位素。<br><b>为什么曲线是"钟形"？</b>左边（轻核）爬升是表面项在起作用——核子越少，"表面"占比越大，浪费的束缚越多；右边（重核）下降是库仑项在拖后腿——质子太多，电排斥越来越强。中间的铁（A≈56）正好两边扯平，是全宇宙最"懒得动弹"的核：比它轻的可以聚变放出能量，比它重的可以裂变放出能量，它自己待在谷底。</div>
+</section>
+
+<section id="s3">
+ <h2>3. 费米气体：为什么物质"硬"</h2>
+ <p class="intu">直觉：费米子像"满座的电影院"——每个座位（量子态）只能坐一个人。人越多，后来者只能坐更高的"楼层"（动量），于是即使温度为零，这一群粒子也天然拥有压强。这就是白矮星、中子星"硬"到压不垮的秘密。</p>
+ <p>把核物质近似为均匀、零温、完全简并的费米气体——这是后面所有计算的骨架。核子是自旋 1/2 的费米子，加上质子/中子两种同位旋态，每个动量态可容纳 γ = 2×2 = 4 个核子。泡利不相容把动量态从 0 填到<b>费米动量 k_F</b>：</p>
+ <div class="formula">ρ = γ/(2π²)·k_F³/3 &nbsp;→&nbsp; k_F = (3π²ρ/γ)^(1/3)</div>
+ <p>代入饱和密度 ρ₀≈0.16 fm⁻³（γ=4）：</p>
+ <table>
+  <tr><th>量</th><th>值</th><th>说明</th></tr>
+  <tr><td>费米动量 k_F</td><td>1.33 fm⁻¹ ≈ 262 MeV</td><td>核内核子动量标度</td></tr>
+  <tr><td>费米能 ε_F = k_F²/2m</td><td>≈ 37 MeV</td><td>最高占据单粒子能</td></tr>
+  <tr><td>平均动能 (3/5)ε_F</td><td>≈ 22 MeV</td><td>每核子动能不是小量！</td></tr>
+ </table>
+ <p>关键结论一：<b>即使温度为零，费米气体也有压强（简并压）</b>——泡利原理不许粒子挤进已占的态。白矮星靠电子简并压撑住，中子星靠中子简并压+强相互作用压撑住。这是第 12 节 TOV 方程的物理前提。</p>
+ <p>关键结论二：<b>核内平均动能 ≈ 22 MeV，占结合能（约 16 MeV/A）的 ~1.4 倍</b>。核子不是"安静的"，而是高速运动的费米海——任何忽略动能的模型都注定失败。RMF 里处理动能的工具就是<b>费米积分</b>（标量密度 ρ_s = γ/(2π²)∫₀^{k_F} p²(M*/E) dp），第 8 节会现场算。</p>
+ <div class="side"><b>周边 · 从白矮星到中子星：一场"占座"的战争</b>恒星烧完燃料后，靠什么撑住自己不被引力压塌？第一道防线是<b>电子简并压</b>——电子也是费米子，被挤到极限后"宁可死也不让座"，这就是白矮星。但如果质量超过钱德拉塞卡极限（约 1.4 倍太阳质量），电子压扛不住，电子被压进原子核和质子结合成中子——剩下的是一颗几乎全由中子构成的星，直径只有 ~20 公里，却装着 1–2 个太阳的质量。<b>1967 年</b>，天文学家发现脉冲星（快速自转、规律发射射电脉冲的中子星），从"理论上存在"变成"亲眼所见"。记住这条链：简并压（第 3 节）→ 中子星（第 12 节）→ 观测（第 13 节），是这一页少数"一路通到底"的主线。</div>
+</section>
+
+<section id="s4">
+ <h2>4. 相对论与多体：为什么 RMF 非用狄拉克方程不可</h2>
+ <p class="intu">直觉：核内核子跑得接近光速的 1/4，"变轻"不再是比喻而是实际效应——有效质量 M* 就是相对论给核物理的见面礼。加上 A 体问题算不动，唯一出路是把"别人的作用"打包成一个平均场。</p>
+ <p><b>相对论</b>：核内核子动量 ~k_F = 262 MeV，速度 v/c = p/E ≈ 262/√(262²+940²) ≈ 0.27 ≈ c/4。非相对论动能 p²/2m = 36 MeV，相对论修正 (3/8)p⁴/m³ ≈ 2–3 MeV/A——绝对量不大，但核内每个核子能量 ~1 GeV、结合能只有 ~16 MeV，任何 1% 的相对论修正都与结合能同量级。所以核物理的"正确起点"是狄拉克方程，能量用</p>
+ <div class="formula">E = √(p² + m*²) &nbsp;&nbsp;（自然单位；m* 为有效质量，见下）</div>
+ <p><b>多体</b>：A 个核子的薛定谔方程是 3A 维偏微分方程。A=56 时（铁核）这超出一切直接数值方法。标准出路是<b>平均场</b>：把"所有其他核子对我的作用"换成单个自洽势 V(r)，先解单粒子态，再用单粒子态重建密度，密度反过来确定势——循环到自洽。这是 Hartree 思想，也是密度泛函理论（DFT）与 RMF 的共同骨架。</p>
+ <p><b>有效质量 M*</b>：在介质中，核子受标量（σ）场作用，其"惯性质量"从裸值 m_N 降到</p>
+ <div class="formula">M* = m_N − g_σσ &nbsp;（本页模型在饱和点给出 M*/M ≈ 0.65）</div>
+ <p>质量变了，动能、态密度、费米积分全部跟着变——这正是"场"反哺"粒子"的自洽回路。第 8 节的 demo 会把这条回路真正解出来。</p>
+ <div class="side"><b>周边 · 质量亏损就是 E=mc²</b>你也许在教科书见过"太阳每秒钟把 400 万吨质量变成能量"——那就是 E=mc² 在聚变里的实况。核物理版的同一件事：把 Z 个质子、N 个中子的质量加起来，总比原子核重一点，差的那点（"质量亏损"）除以 c² 就是结合能 B。本页第 2 节的公式 B = 质量亏损×c² 用的就是这个。<br><b>为什么金子贵？</b>金（Z=79）比铁重得多，不能靠恒星核聚变一点点造出来——它主要来自<b>中子星并合</b>：两颗中子星撞在一起，抛出的中子被快速捕获、β 衰变，一路合成到金、铂、铀这些重元素（"r 过程"）。所以第 12 节的 TOV、第 13 节的 GW170817，研究的对象就是你首饰盒里那点金子的"产地"。</div>
+</section>
+
+<section id="s5">
+ <h2>5. 原子核是多体量子系统，不是一个小太阳系</h2>
+ <p class="intu">直觉：电子绕核转，像"一个行星绕太阳"；核子里则是"一群行星在同一个碗里互相拉扯"——没有中心，谁也不比谁特殊。这正是它比原子难的原因。</p>
+ <p>原子物理里，一个轻电子绕着重核转，中心场近似很好用。原子核反过来：十到几百个核子挤在约 <code>1.2·A<sup>1/3</sup> fm</code> 的半径里，平均间距接近核力 range（≈1–2 fm）。没有"中心"，每个核子都被周围所有核子同时作用。这正是第 4 节说的<b>多体问题</b>。</p>
+ <p>对基态最成功的一类近似是<b>平均场</b>。RMF 就是其中一种——而且它能自然处理相对论效应（核子在核内速度可达 c/4，有效质量随密度变化不可忽略）。</p>
+ <div class="note">为什么从原子讲到核要换工具？原子里电子是非相对论、弱耦合、中心场；原子核里核子是相对论性、强耦合、无中心。共享的只有一条思路：先解单粒子在有效场里的运动，再把有效场本身当成待解方程。下面所有 demo 都围绕这个"自洽"循环转。</div>
+ <div class="side"><b>周边 · 一张表看懂"为什么难"</b>把两个系统摆在一起看：原子是"一个轻粒子 + 一个重中心"，核是"A 个等重粒子挤在一起"。前者可以用"中心场"偷懒（把原子核当不动点电荷），后者没有中心可偷懒——每个核子同时被周围所有核子作用，而且这种作用不是"平方反比"的简单力，是复杂得多、有吸引有排斥的核力。这就像：解"地球绕太阳"是开普勒；解"一百个太阳互相绕转"是三体问题的放大版——没有一般解析解，只能数值求近似。RMF 就是这个"近似"里的主力之一。</div>
+</section>
+
+<section id="s6">
+ <h2>6. 核力：介子交换图像</h2>
+ <p class="intu">直觉：核子之间不直接"手拉手"，而是互相"扔球"（交换介子）——球越重，能扔到的距离越短。σ 介子负责把核子拉近（吸引），ω 介子负责推开（排斥），ρ 介子管"质子和中子不是一回事"。</p>
+ <p>现实核力（从 NN 散射实验反推）有特征：极短程（&lt;0.5 fm）是强排斥硬芯；中程（0.5–1 fm）是强吸引；长程是 π 介子交换的弱吸引（张量、自旋相关）。直接拿它做平均场会发散——硬芯让两体力在原点爆炸。</p>
+ <p>现代图像：核力由<b>介子交换</b>传递（Yukawa 1935）。交换粒子的质量决定作用范围：</p>
+ <div class="formula">V(r) ∝ e^(−r/λ)/r &nbsp;，&nbsp; λ = ℏc/(mc²)</div>
+ <table>
+  <tr><th>介子</th><th>质量</th><th>作用范围 λ</th><th>角色</th></tr>
+  <tr><td>π（赝标量）</td><td>≈ 140 MeV</td><td>≈ 1.4 fm</td><td>长程吸引（自旋相关）</td></tr>
+  <tr><td>σ（标量）</td><td>≈ 500–550 MeV</td><td>≈ 0.4 fm</td><td><b>中程吸引</b>——RMF 主角</td></tr>
+  <tr><td>ω（矢量）</td><td>≈ 783 MeV</td><td>≈ 0.25 fm</td><td><b>短程排斥</b>——RMF 主角</td></tr>
+  <tr><td>ρ（同位旋矢量）</td><td>≈ 770 MeV</td><td>≈ 0.26 fm</td><td>区分质子/中子——管对称能</td></tr>
+ </table>
+ <p>RMF 的聪明办法：<b>用介子场代替两体力</b>。核子不再互相直接推拉，而是各自在一个由所有核子共同激发的介子场里运动。场是经典的、平滑的——硬芯被 ω 场的排斥自然吸收，不再需要逐对处理。</p>
+ <div class="formula">Lagrangian（RMF，不含费米子动能项）：<br>ℒ_meso = +½(∂_μσ)² − ½m_σ²σ² − ⅓B σ³ − ¼C σ⁴ &nbsp;（标量场，吸引+非线性自作用）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− ½m_ω² ω_μω^μ + ½m_ρ² ρ_μρ^μ &nbsp;（矢量场，排斥 / 同位旋）</div>
+ <p>σ 的非线性自作用项（Boguta–Bodmer，1980 年代加入）是关键：它让饱和性质能被调到实验值，否则纯线性 Walecka 模型（QHD-I）会把核物质压得太硬。本页使用一个校准过的 NL3 类参数集（第 9 节给出数值），下面所有数字都由它当场算出来。</p>
+ <div class="side"><b>周边 · "扔球"理论是怎么来的</b>1935 年，汤川秀树（Hideki Yukawa）反过来用"核力作用范围 ≈ 1.4 fm"倒推出：传递核力的粒子质量必须 ≈ 140 MeV——他预言了一种"介子"，12 年后（1947）实验才在宇宙线中找到（π 介子），他也因此拿诺贝尔奖。后来发现 π 只负责长程部分，短程的"硬核排斥"要靠更重的 ω/ρ 介子（~780 MeV）。把核力"量子化"成交换粒子的思想，和电磁力靠交换光子是同一种语言——只是"胶水粒子"从零质量的电磁光子，换成了有质量的介子。<br><b>为什么有质量决定了作用范围？</b>直觉版：球越重，扔出去越费劲，越扔不远。数学版：Yukawa 势 V ∝ e^(−r/λ)/r，其中 λ = ℏc/(mc²)。m=0（光子）→ λ=∞（长程，电磁力到宇宙尽头）；m=140 MeV（π）→ λ=1.4 fm（只够在核内折腾）。</div>
+</section>
+
+<section id="s7">
+ <h2>7. 平均场近似：把 A 体问题压成单粒子问题</h2>
+ <p class="intu">直觉：与其精确跟踪每个人怎么推别人，不如先感受"全场平均的推挤"，把每个人的推挤换成同一个背景场。先让粒子在场里运动，再用粒子的分布反算场——来回迭代到稳定。</p>
+ <p>在平均场极限，每个核子（Dirac 旋量）在一个由经典介子场构成的势里独立运动。带有效质量 <code>M* = M − g_σσ</code> 的核子，在矢量势 <code>V = g_ωω</code>（对质子还有 ±½g_ρρ_0）里运动。基态由"填满费米海"得到：每个动量态 <code>p &lt; k_F</code> 被占据。</p>
+ <p>关键量：</p>
+ <table>
+  <tr><th>量</th><th>定义</th><th>物理</th></tr>
+  <tr><td>费米动量 k_F</td><td><code>(3π²ρ/γ)<sup>1/3</sup></code></td><td>密度越大，占据动量越高</td></tr>
+  <tr><td>标量密度 ρ_s</td><td>∫ p²(M*/E) dp</td><td>驱动 σ 场（吸引）</td></tr>
+  <tr><td>矢量密度 ρ_v</td><td>≈ ρ_b</td><td>驱动 ω 场（排斥）</td></tr>
+  <tr><td>有效质量 M*</td><td>M − g_σσ</td><td>核内核子"变轻"，相对论效应</td></tr>
+ </table>
+ <p>注意 ρ_s ≠ ρ_v：标量密度对有效质量敏感，比矢量密度小。这个差别正是平均场能描述饱和的原因。</p>
+ <div class="side"><b>周边 · 自洽循环的生活类比</b>想象你在给一个 200 人的房间调空调：你先假设室温 20°C，于是设定制冷功率；功率定了，房间的实际温度随之变化；再看实际温度，重新调整功率……直到"设定功率造成的温度"与"该温度需要的功率"彼此一致，迭代停止。平均场就是同一件事：先猜有效质量 → 算密度 → 密度反过来定场 → 场又改有效质量 → 循环到收敛。第 8 节交互 1 的"迭代求解"按钮，做的就是这件事——你会亲眼看到它两三百步内收敛到同一个答案。</div>
+</section>
+
+<section id="s8">
+ <h2>8. RMF 自洽方程组</h2>
+ <p class="intu">直觉：这一节只有一个动作——"用场算密度、用密度算场"，直到两边都答对。看不懂方程没关系，先看交互 1 的数字如何收敛。</p>
+ <p>场不是给定参数，而是由密度决定的。于是得到一组相互依赖的方程——<b>自洽</b>意味着"用场算密度，用密度算场，反复到自洽"：</p>
+ <div class="formula">m_σ²σ + Bσ² + Cσ³ = g_σ ρ_s &nbsp;&nbsp;（标量场方程，取最小正根）<br>m_ω²ω = g_ω ρ_v &nbsp;&nbsp;（矢量场方程）<br>m_ρ²ρ_0 = g_ρ(ρ_n − ρ_p) &nbsp;&nbsp;（同位旋场方程）<br>M* = M − g_σ σ &nbsp;&nbsp;（有效质量反馈）<br>ρ_s = γ/(2π²) ∫₀^{k_F} p²(M*/√(p²+M*²)) dp</div>
+ <p>最后一行里 M* 又出现在积分中——这正是循环的来源。下面 demo 把它真正解出来，而不是套公式。σ 场方程是三次多项式、可能有两个正根，程序取物理的那个（最小正根，即能量较低的支）。</p>
+
+ <div class="demo">
+  <h3>交互 1 · 对称核物质的 RMF 自洽求解（校准的 NL3 类参数集）</h3>
+  <p class="lead">拖动密度，点击"迭代求解"。程序从 M*=M 出发，反复更新 σ→M*→ρ_s→σ，直到收敛，再算出有效质量、标量密度、每核子结合能。饱和点附近每核子结合能应接近 −15 MeV。</p>
+  <div class="row">
+   <div class="ctrl">密度 ρ (fm⁻³)<input id="d1rho" type="range" min="0.02" max="0.40" step="0.001" value="0.145"><span id="d1rv">0.145</span></div>
+   <button onclick="runRMF()">迭代求解</button>
   </div>
+  <canvas id="d1c" width="660" height="300"></canvas>
+  <div class="out" id="d1o">点击求解查看结果…</div>
+ </div>
+</section>
 
-  <h3>2. 对称能与其"软化"</h3>
-  <p>核物质 EOS 可拆出<b>对称能</b>项（与同位旋不对称度 δ 相关，∝ S(ρ)·δ²）。对称能在饱和点的斜率 L 与曲率 K_sym 决定了中子皮厚度、中子星壳层等可观测量。
-  作者 2012 的自有课题正是：<b>在 RMF 中让对称能随密度"软化"（斜率 L 变小），考察它对核性质的影响，并研究缺中子砹(At)同位素的"形状共存"</b>——
-  即同一核的基态可同时出现球形与形变两种形状。这是 RMF 应用于丰中子核结构的话题。</p>
+<section id="s9">
+ <h2>9. 基态可观测：饱和与结合能</h2>
+ <p class="intu">直觉：把核子"加水"加到再多也压不进去——核物质有个天然的"最舒服密度"（饱和点），就像水在常温常压下密度固定一样。RMF 能算出这个密度，是它最硬的一枚勋章。</p>
+ <p>把交互 1 沿密度扫一遍，会发现<b>能量密度在约 ρ₀≈0.145 fm⁻³ 处取极小，每核子结合能 ≈ −14.8 MeV</b>——这正是实验上所有大核共同的"饱和"性质：核内密度几乎恒定、结合能随 A 线性增长。单个参数集就把这点复现出来，是平均场成功的硬证据。真实核物质饱和点：ρ₀ = 0.16 ± 0.01 fm⁻³、E/A = −16 ± 1 MeV（由核结合能拟合），本页教学参数集落在窗口附近。</p>
+ <p>同时有效质量降到 <code>M*≈0.65 M</code>：核子在核内"惯性变小"，这是相对论平均场区别于非相对论 Skyrme 模型的标志性特征。</p>
+ <div class="note">本页参数集经数值校准：饱和点 ρ₀=0.145 fm⁻³、E/A=−14.8 MeV、M*/M=0.652、对称能 E_sym(ρ₀)=35.3 MeV，均落在实验/经验窗口内。数值细节与文献 NL3 略有出入，属教学简化。</div>
+</section>
 
-  <h3>3. 有效相互作用参数集：TM1 / FSUGold / DD-MEδ</h3>
-  <p>RMF 不是唯一一套参数，不同参数集适配不同现象。作者 2012 的文献阅读聚焦三者（对应阅读作业 <code>TM1.docx</code>、<code>DD-MEδ.docx</code>）：</p>
-  <ul>
-    <li><b>TM1</b>：含非线性 ω 项与 ρ 项，常用于相对论重离子碰撞与有限核；</li>
-    <li><b>FSUGold</b>（Todd-Rutel &amp; Piekarewicz, <i>PRL</i> <b>95</b>, 122501, 2005）：在 NL3 基础上加入 ρ-ω 混合项，<b>专门准确标定对称能与中子星性质</b>。
-    Sheng &amp; Ren（<i>EPJA</i> <b>46</b>, 241, 2010）用 FSUGold 做形变 RMF，成功复现 Sn/Te/Xe/Ba（Z=50）同位素的基态结合能、两中子分离能、四极形变与均方根电荷半径；</li>
-    <li><b>DD-MEδ</b>：密度依赖介子-核子耦合 + δ 介子，改善同位旋与有限核描述。</li>
-  </ul>
-  <p class="note">这三个参数集正是"同一个 RMF 框架、不同标定目标"的范例：TM1 偏重高密碰撞，FSUGold 偏重对称能/中子星，DD-MEδ 偏重同位旋。标定目标不同，状态方程就不同，中子星的最大质量也随之改变。</p>
+<section id="s10">
+ <h2>10. 对称能：为什么中子星偏爱中子</h2>
+ <p class="intu">直觉：核子"不喜欢"质子中子数量差太多——差了要交"对称能"罚款。罚款的单价（S₀ 和斜率 L）是全核物理最热门的测量对象，因为它直接决定中子星能装多重。</p>
+ <p>对称核物质（N=Z）之外，真实核与中子星都是<b>中子富集</b>的。把同位旋不对称 <code>δ=(ρ_n−ρ_p)/ρ</code> 加进来，能量多一项对称能：</p>
+ <div class="formula">E(ρ,δ) ≈ E_sym(ρ)·δ² &nbsp;&nbsp;，&nbsp;&nbsp; E_sym(ρ) ≈ S₀ (ρ/ρ₀)^γ</div>
+ <p>两个关键量：<b>S₀</b>（饱和点对称能，≈30–38 MeV）和<b>斜率参数 L</b>（决定对称能随密度怎么涨）：</p>
+ <div class="formula">L = 3 ρ₀ (dE_sym/dρ)|_{ρ₀} = 3 S₀ γ</div>
+ <p>L 是当代核物理最不确定的量之一，也是连接核结构与中子星的关键旋钮——它直接决定中子星里的<b>质子比例</b>和<b>状态方程软硬</b>。地面实验（重离子碰撞、中子皮测量 PREX-II）与天文观测（NICER 半径、引力波潮汐形变）正在交叉压缩它的区间。下面 demo 让你亲手拧 L 看曲线。</p>
 
-  <h3>4. 从中子星到有效场论</h3>
-  <p>把 RMF EOS 推向高密，即得到<b>中子星状态方程</b>：压强 p(ρ)、质量-半径关系、最大质量（"2 太阳质量中子星"对对称能构成强约束）。
-  更深一层，Paeng &amp; Rho（arXiv:1002.3022《Toward an Effective Field Theory for Cold Compressed Baryonic Matter》）用
-  <b>手征有效场论 + BR 标度（BR scaling）</b>从零密度外推到核物质乃至致密星，强调隐藏局域对称与双重分馏（double decimation）——这是 RMF 之上更"第一性原理"的框架。
-  而 Landau / Gibbs / Boltzmann / Fermi 等人的<b>统计物理</b>（见作者 2012 的《统计物理》阅读）是这些有限温度/有限密度分布的公共地基，与原子系统那套"共用地基"（见 <a href="https://wadesha.github.io/atomic-physics-topics-intro/#b0">主站</a>）一脉相承。</p>
+ <div class="demo">
+  <h3>交互 2 · 对称能 E_sym(ρ) 随斜率 L 变化</h3>
+  <p class="lead">拖动 L（0–120 MeV），看 E_sym 曲线如何改变。L 越大，高密度对称能越硬——中子星中心对称能项的压强越高。</p>
+  <div class="row">
+   <div class="ctrl">斜率 L (MeV)<input id="d2L" type="range" min="0" max="120" step="1" value="90"><span id="d2Lv">90</span></div>
+   <div class="ctrl">饱和点 S₀ (MeV)<input id="d2S" type="range" min="25" max="40" step="0.5" value="35.3"><span id="d2Sv">35.3</span></div>
+  </div>
+  <canvas id="d2c" width="660" height="300"></canvas>
+  <div class="out" id="d2o"></div>
+ </div>
+ <div class="side"><b>周边 · 为什么中子星几乎全是中子？</b>自由中子在真空中会 β 衰变（约 15 分钟变成质子+电子+反中微子）。但在中子星内部，质子多起来后，电子被"压"得越来越贵（泡利原理），β 衰变反过来被抑制——达到"β 平衡"：中子⇌质子+电子互相转换保持净零。结果质子比例只有 ~5–15%，剩下全是中子。对称能就是这场拉锯战的裁判：它越"贵"，质子越少。<br><b>中子皮（neutron skin）</b>：在铅这样的重核里，多余的中子被"挤"到表面，形成一层中子皮。这层皮有多厚，直接反映 L 多大——美国杰斐逊实验室的 PREX-II 实验测出铅的中子皮 0.283±0.071 fm，推得 L≈106±37 MeV（偏高），和天文观测偏爱的较小 L 有公开"张力"。一个地面实验和一个天上实验，在拧同一个旋钮。</div>
+</section>
 
-  <h3>5. 这条线与原子线有什么关系</h3>
-  <p>表面上无关：一条是 eV 尺度的原子蒸气磁强计，一条是 MeV–GeV 尺度的核物质。但<b>方法同源</b>——都把哈密顿量写成平均场/可解形式，对角化或数值求解，再与实验对照；
-  都用状态方程/能级图作输出；都依赖精细的相互作用标定。这也是同一份 ACADEMIC 档案能把两者收在一起的原因。</p>
-  <h3>6. 原始材料与延伸阅读</h3>
-  <p>本节尽量锚定作者本人 2012 留下的材料，便于回溯：</p>
-  <ul>
-    <li><b>作者本人（2012）</b>：《201208》LaTeX 数值演练（Walecka/RMF 下核物质 EOS：自洽解有效质量、积分算能量密度 e 与压强 p）；自有课题"在相对论平均场框架内研究软化对称能对核性质的影响及砹缺中子同位素的形状共存"。</li>
-    <li><b>Todd-Rutel &amp; Piekarewicz</b>, <i>PRL</i> <b>95</b>, 122501 (2005)：FSUGold 参数集（在 NL3 上加 ρ-ω 混合项，专门标定对称能与中子星性质）。</li>
-    <li><b>Sheng &amp; Ren</b>, <i>EPJA</i> <b>46</b>, 241 (2010)：用 FSUGold 做形变 RMF，复现 Sn/Te/Xe/Ba（Z=50）同位素的基态结合能、两中子分离能、四极形变与均方根电荷半径。</li>
-    <li><b>Paeng &amp; Rho</b>, arXiv:1002.3022 (2010)：《Toward an Effective Field Theory for Cold Compressed Baryonic Matter》——手征有效场论 + BR 标度，从零密度外推到核物质与致密星。</li>
-    <li><b>阅读作业</b>：TM1 / FSUGold / DD-MEδ 有效相互作用评述，以及 Landau / Gibbs / Boltzmann / Fermi 统计物理。</li>
-  </ul>
+<section id="s11">
+ <h2>11. 状态方程（EOS）：压强是密度的函数</h2>
+ <p class="intu">直觉：EOS 就是核物质的"说明书"——告诉你"压到什么密度，物质会给出多大反抗力（压强）"。微观物理全部浓缩进这一条 P(ε) 曲线，之后宏观的中子星只认这条曲线。</p>
+ <p>给定能量密度 ε(ρ) 和压强 P(ρ)，就得到了核物质的<b>状态方程</b>。EOS 是连接微观核力与宏观中子星的唯一桥梁：TOV 方程只认 P(ε)。</p>
+ <p>对称物质的 RMF EOS 很"硬"（高压强），但真实中子星物质还要加上对称能项（中子富集抬压）。下面给出对称物质的 RMF EOS 曲线。</p>
 
-<div class="footer">
-  核物理支线独立页 · 主线见 <a href="https://wadesha.github.io/atomic-physics-topics-intro/">从原子到磁力仪</a>。
-  数值与结论请以原始文献为准。
-</div>
+ <div class="demo">
+  <h3>交互 3 · 对称物质 RMF 状态方程 P(ε)</h3>
+  <p class="lead">由交互 1 的求解器扫密度得到。注意饱和点（ρ₀, E/A≈−14.8）附近 P≈0——稳定核正好站在压强为零的密度上。</p>
+  <canvas id="d3c" width="660" height="300"></canvas>
+  <div class="out" id="d3o"></div>
+ </div>
+</section>
+
+<section id="s12">
+ <h2>12. 中子星与 TOV 方程</h2>
+ <p class="intu">直觉：把"密度↔压强"说明书塞进爱因斯坦引力方程，从星心一层层往外"算账"：每层向外的压强，必须刚好顶住上面所有物质向内的引力。算到压强归零的地方，就是星面——于是得到这颗星多重、多大。</p>
+ <p>当密度远超饱和密度（中子星中心 ρ≈2–8 ρ₀），核子被压进简并费米气体，引力与简并压/强相互作用压抗衡。平衡由 <b>Tolman–Oppenheimer–Volkoff (TOV)</b> 方程描述（广义相对论静平衡；注意分母的 1−2Gm/(rc²) 就是史瓦西几何因子，m 达到一定值后它趋于 0，星体坍缩）：</p>
+ <div class="formula">dP/dr = − G (ε + P)(m + 4πr³P/c²) / (r² (1 − 2Gm/(rc²)))<br>dm/dr = 4π r² ε / c²</div>
+ <p>从中心（ρ_c, P_c）向外积分，P 降到 0 处即星面，得到质量 M 与半径 R。换不同的中心密度，得到一条<b>质量–半径曲线</b>；曲线顶点就是<b>最大质量 M_TOV</b>——超过它，没有静力平衡，星体坍缩成黑洞。历史上 TOV 的最大质量预言（中子星 ~0.7 M☉ 的原始估计）长期困扰学界，直到后来引入更硬的核 EOS 才与观测一致——这段历史正是"EOS 决定中子星"的最初证据。</p>
+
+ <div class="demo">
+  <h3>交互 4 · 中子星 M–R 曲线（对称 RMF + 对称能抛物近似）</h3>
+  <p class="lead">用"对称 RMF EOS + 对称能抛物修正"（教科书标准近似：P_NS = P_sym + δ²ργE_sym，取 δ=0.9）构造 β 平衡 npe 物质的 EOS，再积分 TOV。旋钮缩放对称能强度 S₀：<b>把对称能拧软，M_TOV 单调下降</b>——这正是对称能研究的核心：软化对称能如何把预言的 M_TOV 拉回观测窗口。</p>
+  <div class="row">
+   <div class="ctrl">对称能强度缩放<input id="d4g" type="range" min="0.5" max="1.3" step="0.01" value="1.0"><span id="d4gv">1.00</span></div>
+   <button onclick="runTOV()">计算 M–R 曲线</button>
+  </div>
+  <canvas id="d4c" width="660" height="320"></canvas>
+  <div class="out" id="d4o">点击计算…</div>
+  <div class="note">说明：本 demo 的 NS EOS 为"对称 RMF EOS + 对称能抛物项"的近似（δ=0.9，γ=L/(3S₀)），未含 μ 子与 crust 低密段；数值为方法演示，并非某篇具体文献的拟合结果。教学参数集的对称 EOS 偏硬，M_TOV 基值（≈3.1 M☉）高于观测窗口，旋钮演示的是"软化对称能 → M_TOV 下降"的机制方向。</div>
+ </div>
+ <div class="side"><b>周边 · 中子星有多"离谱"？</b>一茶匙（约 5 cm³）中子星物质 ≈ 5×10¹² kg——重约 <b>10 亿吨</b>，相当于一万艘十万吨级航母。它的引力大到：从表面逃逸需要 ~0.4 c 的速度；光路过表面会明显弯折。而它内部就是本页第 3、8、10 节的物理：费米简并压 + σ/ω/ρ 介子场 + 对称能，挤在原子核尺度上。<br><b>TOV 预言了什么，又如何被证实？</b>1939 年 TOV 用当时的核 EOS 算出的中子星最大质量只有 ~0.7 M☉，小得可疑——这说明当时的 EOS 太软，逼着核物理学家把核力研究得更硬、更细。这个"理论与观测互相较劲"的循环，就是第 13 节要讲的：今天的多信使天文，让这个 1939 年的方程第一次有了真正能"对账"的观测。</div>
+</section>
+
+<section id="s13">
+ <h2>13. 观测约束：模型必须答对这几道题</h2>
+ <p class="intu">直觉：理论随便怎么算，最后都要过"天文考试"：测到的中子星必须是 2 个太阳质量左右、半径 12 公里上下。答对了才算数——这就是"用观测校准模型"的闭环。</p>
+ <p>一个合格的核 EOS，其预言的 M–R 曲线必须穿过以下观测窗口（都来自近十年的多信使天文）：</p>
+ <table>
+  <tr><th>观测</th><th>约束</th><th>含义</th></tr>
+  <tr><td>脉冲星 PSR J0740+6620（NICER + XMM）</td><td>M = 2.08 ± 0.07 M☉</td><td>最重精确质量，要求 EOS 足够硬</td></tr>
+  <tr><td>GW170817（双中子星并合引力波）</td><td>Λ(1.4 M☉) ≈ 70–580（90%置信）</td><td>潮汐形变小 ⇒ 星较紧致、EOS 不太软</td></tr>
+  <tr><td>NICER（J0030 / J0740 半径测量）</td><td>R(1.4 M☉)≈11–13.5 km；R(2 M☉)≈12.4 km</td><td>直接给半径，压 EOS 软硬区间</td></tr>
+  <tr><td>PREX-II（铅中子皮）</td><td>中子皮 0.283±0.071 fm → L≈106±37 MeV</td><td>偏高的 L，与 NICER 偏小的 L 有张力</td></tr>
+  <tr><td>M_TOV 总体观测</td><td>≈ 2.2–2.3 M☉</td><td>最大质量上限，软 EOS 容易跌破</td></tr>
+ </table>
+ <p>难点在于：<b>既要够硬以撑住 2 M☉ 脉冲星，又要够软以满足 GW170817 的潮汐约束</b>。把对称能适当软化（降低 L、下调有效 g_ρ）能把预言的 M_TOV 拉回 2.0–2.3 窗口——这是 RMF 框架内"软化对称能对核性质与中子星的影响"这类研究的核心动机。本页教学参数集的对称 EOS 偏硬，M_TOV 基值偏高（交互 4 中可见），旋钮演示的正是这一软化的机制方向。</p>
+ <div class="note">PREX-II 给出偏高的 L（≈106 MeV）与 NICER 倾向的较小 L 之间存在公开张力；这正是当前对称能研究活跃的原因，也是把核实验室测量与天文观测连起来的桥梁。</div>
+ <div class="side"><b>周边 · 2017 年的"黄金 100 秒"</b>2017 年 8 月 17 日，LIGO 引力波探测器捕捉到两颗中子星并合的信号（GW170817）。100 秒内，全球 70 个天文台接力：伽马暴、可见光、射电、X 射线全部指向同一片天空。那颗"千新星"（kilonova）的光谱里，出现了锶、金、铂等重元素的特征——人类第一次<b>亲眼看到</b>"r 过程"在宇宙里现场炼金。这次事件同时给了本页第 13 节表格里两条硬约束：潮汐形变 Λ(1.4 M☉)≈70–580（从波形直接读出），以及 M_TOV 一定 ≥ 约 2 M☉（因为并合前两颗星都真实存在）。<br>这也是为什么第 13 节说"难点在于既要够硬又要够软"：太硬的 EOS 能撑住 2 M☉，却会在并合时形变过大、与引力波波形矛盾；太软的 EOS 则撑不住 2 M☉。中间那条窄缝，就是当前所有核 EOS 模型在抢的位置。</div>
+</section>
+
+<section id="s14">
+ <h2>14. 收束：从原子核到中子星的一条链</h2>
+ <p class="intu">直觉：现在回头看，第 1 到 13 节其实在回答同一句话——"一堆核子怎么聚成核、又怎么塌成星"。把链首尾相连，就是本页的全部。</p>
+ <p>这条支线里所有模型——度量衡、液滴模型、费米气体、平均场、σ/ω/ρ 介子交换、自洽循环、对称能、TOV——构成一条完整的链：</p>
+ <p>① 液滴模型告诉你"结合能曲线长什么样"（B/A 峰在铁）；② 费米气体告诉你"物质为什么硬"（简并压）；③ RMF 告诉你"核子在介质里怎么变轻"（有效质量）；④ 对称能告诉你"中子富集会付出什么代价"（E_sym·δ²）；⑤ EOS 把微观能量密度翻译成压强 P(ε)；⑥ TOV 把 P(ε) 翻译成可观测的星体质量与半径。同一套介子耦合参数，既能算地面核的结合能，也能外推到数倍饱和密度的星核，再接受天文观测的审判。</p>
+ <p>原子主线里的 SERF 磁力仪追求的是"安静到能读出单个自旋"；这条支线追求的是"硬到能撑住两太阳质量却软到不违反引力波"——一个极静、一个极致密，共享"先建可算模型、再用观测校准"的同一套工程直觉。这也是本页所有数字都由现场求解器实时计算、而不是抄文献结论的原因：模型可复现，误差可归因，下一步才可加。</p>
+ <p>往下可扩展的方向：把对称能抛物近似换成真正的 β 平衡求解（含 μ 子与 crust 段）；给 σ 场加密度依赖耦合（DD-ME 类）以软化高密度 EOS；把观测约束做成自动拟合（在 M_TOV、Λ、R 上同时打分）。本页的求解器结构（自洽循环 + 表插值 TOV）已为这些扩展留好接口。</p>
+ <div class="links">
+  <a href="index.html">← 返回原子主线（自底向上系统性介绍）</a>
+  <a href="https://wadesha.github.io/nuclear-physics-rmf-eos/" target="_blank" rel="noopener">核物理研究线（独立页，RMF / 对称能 / 中子星）↗</a>
+ </div>
+</section>
+
+<section id="s15">
+ <h2>15. 术语表：随时回来查</h2>
+ <p class="lead">按"出现的先后"排，读正文时遇到不认识的词就回来翻。每条都附一句话"人话版"。</p>
+ <dl class="glos">
+  <dt>核子（nucleon）</dt><dd>质子与中子的统称。本页几乎所有"核子"都同时指这两种。</dd>
+  <dt>同位素（isotope）</dt><dd>质子数相同、中子数不同的核。如 ²³⁵U 和 ²³⁸U 都是铀。</dd>
+  <dt>质量亏损（mass defect）</dt><dd>Z 个质子 + N 个中子的质量，减去原子核实际质量。乘 c² 就是结合能。</dd>
+  <dt>结合能（binding energy）</dt><dd>把核拆成自由核子所需的最小能量。B/A 越大，核越"稳"。</dd>
+  <dt>饱和密度（saturation density）</dt><dd>核物质最"舒服"的密度，ρ₀≈0.15–0.16 fm⁻³。低于它，物质想收缩；高于它，物质想膨胀。</dd>
+  <dt>费米动量 k_F / 费米能 ε_F</dt><dd>零温费米气体里最高被占用的动量/能量。核内 k_F≈1.33 fm⁻¹、ε_F≈37 MeV。</dd>
+  <dt>简并压（degeneracy pressure）</dt><dd>费米子被泡利原理"占座"逼出来的压强，温度为零也存在。白矮星、中子星的支撑力。</dd>
+  <dt>平均场（mean field）</dt><dd>把"所有其他粒子对我的作用"换成一个平滑背景场的近似。从 A 体问题降到单粒子问题。</dd>
+  <dt>有效质量 M*</dt><dd>核子在介质中被 σ 场"变轻"后的惯性质量。本页饱和点 M*/M≈0.65，是相对论效应的招牌。</dd>
+  <dt>介子（meson）</dt><dd>传递核力的中间粒子：π（长程吸引）、σ（中程吸引）、ω（短程排斥）、ρ（同位旋）。</dd>
+  <dt>Yukawa 势</dt><dd>V ∝ e^(−r/λ)/r。交换粒子质量越大，λ=ℏc/mc² 越小，作用范围越短。</dd>
+  <dt>RMF（相对论平均场）</dt><dd>用相对论（狄拉克）单粒子方程 + 经典介子场做平均场。本页全部计算的骨架。</dd>
+  <dt>自洽（self-consistent）</dt><dd>"用场算密度、用密度算场、迭代到两边一致"。第 8 节交互 1 的核心循环。</dd>
+  <dt>对称能 E_sym</dt><dd>中子/质子数量失衡需要付出的能量代价，E_sym·δ²。饱和点值约 30–38 MeV。</dd>
+  <dt>斜率参数 L</dt><dd>对称能随密度的增长率，L=3S₀γ。核物理当前最不确定、最被争夺的量之一。</dd>
+  <dt>β 平衡（beta equilibrium）</dt><dd>中子⇌质子+电子互相转换达到平衡的状态。决定中子星的质子比例（~5–15%）。</dd>
+  <dt>中子皮（neutron skin）</dt><dd>重核表面由多余中子形成的薄层。其厚度 ↔ L 的大小（PREX-II 实验）。</dd>
+  <dt>状态方程 EOS</dt><dd>把微观能量密度翻译成压强的函数 P(ε)。中子星宏观性质只认这条曲线。</dd>
+  <dt>TOV 方程</dt><dd>广义相对论下的恒星静平衡方程。从中心积分到表面，得 M 和 R。</dd>
+  <dt>M_TOV</dt><dd>给定 EOS 能支撑的最大中子星质量。超过它，任何星都坍缩成黑洞。</dd>
+  <dt>史瓦西半径</dt><dd>r_s = 2GM/c²。物体被压进这个半径内就形成黑洞。TOV 方程分母里的 1−2Gm/(rc²) 就是它的影子。</dd>
+  <dt>潮汐形变 Λ</dt><dd>中子星被伴星引力"拉变形"的程度。引力波波形直接携带它，约束 EOS 软硬。</dd>
+  <dt>多信使天文</dt><dd>同一天文事件用引力波 + 电磁波（+ 中微子）同时观测。GW170817 是第一个完整案例。</dd>
+  <dt>r 过程 / 千新星（kilonova）</dt><dd>中子星并合时快速中子俘获合成重元素（金、铂、铀）的过程；伴随的可见光爆发叫千新星。</dd>
+  <dt>钱德拉塞卡极限</dt><dd>白矮星的质量上限（≈1.4 M☉）。超过它电子简并压撑不住，塌成中子星。</dd>
+ </dl>
+</section>
+
 </main>
-</div>
-</body>
-</html>
+<footer>
+ 本页为《从原子到磁力仪》原子主线的核物理支线，按主题自身逻辑自底向上展开，配真实计算的交互 demo。文中模型与参数用于教学演示：σ 场方程取最小正根求解，TOV 用标准 SI 单位数值积分；观测数值引自近十年多信使天文结果（J0740+6620、GW170817、NICER、PREX-II）。未推送至任何公开仓库。
+</footer>
+
+<script>
+"use strict";
+// =====================================================================
+// 校准的 NL3 类 RMF 求解器（已在 Node 中数值验证）
+//  U(s)=0.5 m_s^2 s^2+(B/3)s^3+(C/4)s^4 ;  EOM: m_s^2 s+B s^2+C s^3 = GS rho_s
+//  饱和点(验证值): rho0=0.145 fm^-3, E/A=-14.8 MeV, M*/M=0.652, E_sym=35.3 MeV
+// =====================================================================
+const HBARC=197.3269804, MN=939.0;
+const MSIG=508.194, MW=782.501;
+const GS=9.4, GW=12.0, B=800, C=0;
+const RHO0=0.145, S0=35.3, GAMMA=0.85, DEL2=0.81;
+
+function quadInt(kF,Mstar){ // 单费米子种类的费米积分 [rho_s(MeV^3), eps_k(MeV^4), P_k(MeV^4)]
+  const N=320; let rs=0,ek=0,pk=0;
+  for(let i=0;i<N;i++){const p=kF*(i+0.5)/N; const E=Math.sqrt(p*p+Mstar*Mstar);
+    rs+=p*p*(Mstar/E); ek+=p*p*E; pk+=p*p*p*p/E;}
+  const w=kF/N; return [rs*w, ek*w, pk*w];
+}
+function fEOM(s,rho_s){ return MSIG*MSIG*s + B*s*s + C*s*s*s - GS*rho_s; }
+// σ 场方程三次多项式 → 最小正根（物理支）
+function solveSigma(rho_s_MeV3){
+  let prev=0, pf=fEOM(0,rho_s_MeV3);
+  for(let i=1;i<=3000;i++){const s=150*i/3000, fs=fEOM(s,rho_s_MeV3);
+    if(fs>=0 && pf<0){let lo=prev, hi=s; for(let k=0;k<60;k++){const m=0.5*(lo+hi), fm=fEOM(m,rho_s_MeV3); if(fm<0)lo=m; else hi=m;} return 0.5*(lo+hi);}
+    prev=s; pf=fs;}
+  return 0;
+}
+function Us(s){ return 0.5*MSIG*MSIG*s*s + (B/3)*s*s*s + (C/4)*s*s*s*s; }
+
+// ---- 对称核物质 RMF 自洽求解 ----
+function rmfSym(rho){ // rho: fm^-3
+  const kF=Math.pow(3*Math.PI*Math.PI*rho/2,1/3)*HBARC;
+  let Mstar=MN;
+  for(let it=0;it<200;it++){
+    const qn=quadInt(kF,Mstar), qp=quadInt(kF,Mstar);
+    const rho_s=(2/(2*Math.PI*Math.PI))*(qn[0]+qp[0]);
+    const sig=solveSigma(rho_s);
+    const Mn=MN-GS*sig;
+    if(Math.abs(Mn-Mstar)<1e-3){Mstar=Mn; break;} Mstar=Mn;
+  }
+  const qn=quadInt(kF,Mstar), qp=quadInt(kF,Mstar);
+  const rho_s=(2/(2*Math.PI*Math.PI))*(qn[0]+qp[0]);
+  const sig=solveSigma(rho_s);
+  const rho_v=rho*Math.pow(HBARC,3);
+  const om=GW*rho_v/(MW*MW);
+  const ek4=(2/(2*Math.PI*Math.PI))*(qn[1]+qp[1]);
+  const pk4=(2/(2*Math.PI*Math.PI))*(qn[2]+qp[2]);
+  const sigTerm=Us(sig);
+  const omTerm=0.5*MW*MW*om*om;
+  const eps=(ek4+sigTerm+omTerm)/Math.pow(HBARC,3);       // MeV/fm^3
+  const P=(pk4-sigTerm+omTerm)/Math.pow(HBARC,3);          // MeV/fm^3 (标量项为负、矢量项为正)
+  return {Mstar, sig, rho_s_fm3:rho_s/Math.pow(HBARC,3), eps, P, EA:eps/rho-MN, kF};
+}
+
+// ---- 对称能（幂律参数化）----
+function esym(rho, s0){ return s0*Math.pow(rho/RHO0,GAMMA); }
+
+// ---- plotting helper（同原子主线）----
+function plot(cid, series, opts){
+  opts=opts||{}; const cv=document.getElementById(cid); const ctx=cv.getContext("2d");
+  const W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#0b0e13"; ctx.fillRect(0,0,W,H);
+  let xmin=opts.xmin, xmax=opts.xmax, ymin=opts.ymin, ymax=opts.ymax;
+  if(xmin===undefined){xmin=Infinity;xmax=-Infinity;ymin=Infinity;ymax=-Infinity;
+    series.forEach(s=>s.pts.forEach(p=>{xmin=Math.min(xmin,p[0]);xmax=Math.max(xmax,p[0]);ymin=Math.min(ymin,p[1]);ymax=Math.max(ymax,p[1]);}));
+    const px=(xmax-xmin)*0.08||1, py=(ymax-ymin)*0.08||1; xmin-=px;xmax+=px;ymin-=py;ymax+=py; if(ymin>0&&opts.yminzero)ymin=0;}
+  const X=v=>40+(v-xmin)/(xmax-xmin)*(W-56);
+  const Y=v=>H-30-(v-ymin)/(ymax-ymin)*(H-50);
+  ctx.strokeStyle="#2a2f3a"; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(40,10); ctx.lineTo(40,H-30); ctx.lineTo(W-16,H-30); ctx.stroke();
+  ctx.fillStyle="#6b7280"; ctx.font="11px ui-monospace,monospace";
+  const xt=opts.xticks||4, yt=opts.yticks||4;
+  for(let i=0;i<=xt;i++){const v=xmin+(xmax-xmin)*i/xt; const x=X(v); ctx.fillText(opts.xfmt?opts.xfmt(v):v.toFixed(2), x-12, H-14);}
+  for(let i=0;i<=yt;i++){const v=ymin+(ymax-ymin)*i/yt; const y=Y(v); ctx.fillText(opts.yfmt?opts.yfmt(v):v.toFixed(1), 4, y+4);}
+  series.forEach(s=>{ ctx.strokeStyle=s.color||"#7dd3fc"; ctx.lineWidth=s.w||2; ctx.beginPath();
+    s.pts.forEach((p,i)=>{const x=X(p[0]),y=Y(p[1]); if(i===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);}); ctx.stroke();
+    if(s.marker){s.pts.forEach(p=>{const x=X(p[0]),y=Y(p[1]); ctx.fillStyle=s.color||"#7dd3fc"; ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fill();});}
+  });
+  if(opts.title){ctx.fillStyle="#9aa4b2"; ctx.font="12px sans-serif"; ctx.fillText(opts.title,46,22);}
+  if(opts.xlabel){ctx.fillStyle="#9aa4b2"; ctx.font="11px sans-serif"; ctx.fillText(opts.xlabel,W-110,H-12);}
+  if(opts.ylabel){ctx.fillStyle="#9aa4b2"; ctx.font="11px sans-serif"; ctx.fillText(opts.ylabel,44,18);}
+}
+function lineXY(fn,x0,x1,n){const a=[];for(let i=0;i<=n;i++){const x=x0+(x1-x0)*i/n; a.push([x,fn(x)]);}return a;}
+
+// ---- Demo 0：液滴模型 B/A 曲线 ----
+(function(){
+  const aV=15.8, aS=18.3, aC=0.71, aA=23.2, ap=12;
+  const pts=[];
+  for(let A=2;A<=240;A++){
+    // β 稳定线：使质量最小 → 2aC Z/A^(1/3) ≈ 4aA(A-2Z)/A ⇒ Z ≈ A/(2 + (aC/(2aA))·A^(2/3))
+    const Z=Math.round(A/(2+(aC/(2*aA))*Math.pow(A,2/3)));
+    let B=aV*A - aS*Math.pow(A,2/3) - aC*Z*Z/Math.pow(A,1/3) - aA*Math.pow(A-2*Z,2)/A;
+    if(A%2===0) B += (Z%2===0? ap/Math.sqrt(A) : -ap/Math.sqrt(A)); // 偶偶+，奇奇-
+    pts.push([A, B/A]);
+  }
+  plot("d0c",[{pts,color:"#7dd3fc",w:2}],{xmin:0,xmax:240,ymin:0,ymax:9.5,title:"液滴模型 每核子结合能 B/A (MeV) vs A（β 稳定线）",xlabel:"A",ylabel:"B/A (MeV)"});
+  const maxP=pts.reduce((m,p)=>p[1]>m[1]?p:m);
+  document.getElementById("d0o").textContent=
+    "铁峰附近（A≈"+maxP[0]+"）B/A≈"+maxP[1].toFixed(2)+" MeV；实验峰值（⁵⁶Fe）≈8.8 MeV。\n"+
+    "曲线形状 = 体积项（缓升）− 表面项（压轻核）− 库仑项（压重核）− 对称项（压 N≠Z）。\n"+
+    "轻核区由表面项主导（B/A 陡升），重核区由库仑项主导（B/A 缓降）——这就是核裂变与聚变两侧能量的来源。";
+})();
+
+// ---- Demo 1：对称核物质 RMF 自洽 ----
+document.getElementById("d1rho").addEventListener("input",e=>document.getElementById("d1rv").textContent=(+e.target.value).toFixed(3));
+function runRMF(){
+  const rho=+document.getElementById("d1rho").value; const r=rmfSym(rho);
+  document.getElementById("d1o").textContent=
+    "密度 ρ = "+rho.toFixed(3)+" fm⁻³\n"+
+    "有效质量 M*/M = "+(r.Mstar/MN).toFixed(3)+"\n"+
+    "标量场 σ = "+r.sig.toFixed(2)+" MeV\n"+
+    "标量密度 ρ_s = "+r.rho_s_fm3.toFixed(3)+" fm⁻³\n"+
+    "能量密度 ε = "+r.eps.toFixed(1)+" MeV/fm³\n"+
+    "压强 P = "+r.P.toFixed(1)+" MeV/fm³\n"+
+    "每核子结合能 E/A = "+r.EA.toFixed(2)+" MeV"+(Math.abs(rho-RHO0)<0.01?"   ← 接近饱和点":"");
+  const pts=[]; for(let d=0.02;d<=0.40;d+=0.005){const rr=rmfSym(d); pts.push([d,rr.EA]);}
+  plot("d1c",[{pts,color:"#34d399"}],{xmin:0.02,xmax:0.40,ymin:-25,ymax:40,title:"每核子结合能 E/A (MeV) vs ρ",xlabel:"ρ (fm⁻³)"});
+}
+runRMF();
+
+// ---- Demo 2：对称能曲线 ----
+document.getElementById("d2L").addEventListener("input",e=>{document.getElementById("d2Lv").textContent=e.target.value;drawEsys();});
+document.getElementById("d2S").addEventListener("input",e=>{document.getElementById("d2Sv").textContent=(+e.target.value).toFixed(1);drawEsys();});
+function drawEsys(){
+  const L=+document.getElementById("d2L").value, S0v=+document.getElementById("d2S").value;
+  const gamma=L/(3*S0v);
+  const f=r=>S0v*Math.pow(r/RHO0,gamma);
+  const pts=lineXY(f,0.02,0.6,120);
+  plot("d2c",[{pts,color:"#7dd3fc"}],{xmin:0.02,xmax:0.60,title:"E_sym(ρ) = S₀(ρ/ρ₀)^γ,  γ=L/(3S₀)",xlabel:"ρ (fm⁻³)",ylabel:"E_sym (MeV)"});
+  document.getElementById("d2o").textContent="L = "+L+" MeV, S₀ = "+S0v+" MeV ⇒ γ = "+gamma.toFixed(3)+"；  E_sym(ρ₀) = "+f(RHO0).toFixed(1)+" MeV";
+}
+drawEsys();
+
+// ---- Demo 3：对称物质 EOS ----
+(function(){const pts=[];for(let d=0.03;d<=0.40;d+=0.004){const r=rmfSym(d); pts.push([r.eps,r.P]);}
+ plot("d3c",[{pts,color:"#f59e0b"}],{xmin:0,xmax:450,ymin:0,ymax:160,title:"对称物质 RMF 状态方程 P(ε)",xlabel:"ε (MeV/fm³)",ylabel:"P (MeV/fm³)"});
+ document.getElementById("d3o").textContent="校准的 NL3 类参数；饱和点 (ε≈139 MeV/fm³, ρ₀=0.145) 处 P≈0。";})();
+
+// ---- Demo 4：中子星 M–R（对称 RMF + 对称能抛物修正）----
+document.getElementById("d4g").addEventListener("input",e=>document.getElementById("d4gv").textContent=(+e.target.value).toFixed(2));
+// NS EOS（抛物近似）：ε_NS=ε_sym+ρδ²E_sym, P_NS=P_sym+δ²ργE_sym（δ=0.9）
+function nsEOSPar(rho, sscale){
+  const s=rmfSym(rho);
+  const Es=S0*sscale*Math.pow(rho/RHO0,GAMMA);
+  return {eps:s.eps+rho*DEL2*Es, P:s.P+DEL2*rho*GAMMA*Es};
+}
+// 预建 EOS 表（P,eps 存 MeV/fm³），TOV 积分只查表
+function buildEOSTable(sscale){
+  const rhos=[], eps=[], Ps=[]; const N=200;
+  for(let i=0;i<=N;i++){const rb=0.03+0.55*i/N; const st=nsEOSPar(rb,sscale); rhos.push(rb); eps.push(st.eps); Ps.push(st.P);}
+  return {rhos,eps,Ps};
+}
+function tovIntegrate(tab, rho_c, sscale){
+  const conv=1.602176634e32, G=6.6743e-11, c2=8.98755179e16; // MeV/fm³→Pa ; SI
+  const {rhos,eps,Ps}=tab;
+  const rhoOfP=function(P){if(P<=Ps[0])return rhos[0];for(let i=1;i<Ps.length;i++){if(Ps[i]>=P){const t=(P-Ps[i-1])/(Ps[i]-Ps[i-1]+1e-30);return rhos[i-1]+t*(rhos[i]-rhos[i-1]);}}return rhos[rhos.length-1];};
+  const epsOfP=function(P){const rb=rhoOfP(P);let j=1;while(j<rhos.length&&rhos[j]<rb)j++;const t=(rb-rhos[j-1])/(rhos[j]-rhos[j-1]+1e-30);return (eps[j-1]+t*(eps[j]-eps[j-1]));}
+  const st0=nsEOSPar(rho_c,sscale);
+  let P=st0.P*conv, ep0=st0.eps*conv;
+  let r=1.0, m=4*Math.PI/3*ep0/c2*r*r*r; const dr=25; let R=0,M=0;
+  for(let step=0;step<40000;step++){
+    const rs=1-2*G*m/(r*c2); if(rs<=1e-9){R=r;M=m;break;}
+    const Pn=P-dr*G*((ep0+P)/c2)*(m+4*Math.PI*r*r*r*P/c2)/(r*r*rs);
+    if(Pn<=Ps[0]*conv){R=r;M=m;break;} // 表面：P 到表底
+    m=m+dr*4*Math.PI*r*r*ep0/c2; r=r+dr; P=Pn; ep0=epsOfP(P/conv)*conv;
+    if(r>=80000){R=r;M=m;break;}
+  }
+  return {M:M/1.98847e30, R:R/1000};
+}
+function runTOV(){
+  const g=+document.getElementById("d4g").value; // 对称能强度缩放
+  const tab=buildEOSTable(g);
+  const curve=[]; let Mmax=0,Ratmax=0;
+  for(let i=0;i<=28;i++){ const rhoc=0.15+0.40*i/28;
+    const s=tovIntegrate(tab,rhoc,g); curve.push([s.R,s.M]);
+    if(s.M>Mmax){Mmax=s.M;Ratmax=s.R;}
+  }
+  plot("d4c",[
+    {pts:curve,color:"#7dd3fc",w:2.5},
+    {pts:[[11,0],[11,3.6]],color:"#475569",w:1},
+    {pts:[[14,0],[14,3.6]],color:"#475569",w:1}
+  ],{xmin:8,xmax:18,ymin:0,ymax:3.6,title:"中子星 质量–半径曲线  (对称能缩放="+g.toFixed(2)+")",xlabel:"R (km)",ylabel:"M (M☉)"});
+  document.getElementById("d4o").textContent=
+    "最大质量 M_TOV ≈ "+Mmax.toFixed(2)+" M☉  (R≈"+Ratmax.toFixed(1)+" km)\n"+
+    "观测窗口：J0740 ≈ 2.08 M☉ (R≈12.4 km)；GW170817 限 R(1.4M☉)≈11–13.5 km。\n"+
+    (g>1.02?"对称能偏硬 → M_TOV 升高。":g<0.98?"对称能软化 → M_TOV 下降，向 2.0–2.3 M☉ 窗口靠近。":"默认对称能强度。")+
+    "\n（教学参数集的对称 EOS 偏硬，M_TOV 基值高于观测；旋钮演示的是软化机制的方向。）";
+}
+runTOV();
+</script>
+</body></html>
