@@ -42,8 +42,40 @@
  .xl{color:#fca5a5;font-weight:600;}
  .formula{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b0e13;padding:10px 12px;border-radius:8px;color:#cbd5e1;font-size:13.5px;overflow-x:auto;margin:10px 0;}
  footer{max-width:1080px;margin:0 auto;padding:24px 28px 60px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);}
+/* 浅色主题 */
+body[data-theme="light"]{
+  --bg:#f7f8fa;--card:#ffffff;--line:#dde1e7;--tx:#1a2029;--mut:#5a6472;
+  --acc:#0284c7;--warn:#b45309;--ok:#15803d;
+}
+body[data-theme="light"] p{color:#2a3340}
+body[data-theme="light"] .lead{color:#4a5560}
+body[data-theme="light"] code{background:#eef1f5;color:#374151}
+body[data-theme="light"] .formula{background:#f1f3f6;color:#1f2937}
+body[data-theme="light"] .note{background:#fdf6e3;border-color:#e5c97a}
+body[data-theme="light"] .side{border-color:#c9b8ec}
+body[data-theme="light"] .glos{background:#f1f3f6;border-color:#dde1e7}
+body[data-theme="light"] th{background:#eef1f5}
+body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
+/* 顶部可折叠目录 */
+#tocBtn{position:fixed;top:10px;right:10px;z-index:90;background:transparent;border:1px solid var(--line);
+  color:var(--mut);border-radius:6px;font-size:14px;padding:3px 9px;cursor:pointer;opacity:.55;transition:opacity .2s}
+#tocBtn:hover{opacity:1;color:var(--acc)}
+#toc{position:fixed;top:0;left:0;right:0;z-index:89;background:var(--bg);border-bottom:1px solid var(--line);
+  max-height:0;overflow:hidden;transition:max-height .3s ease;display:flex;flex-wrap:wrap;gap:4px 16px;padding:0 16px}
+#toc.open{max-height:70vh;overflow:auto;padding-top:44px;padding-bottom:12px}
+#toc a{font-size:13px;color:var(--mut);padding:2px 0}
+#toc a:hover{color:var(--acc)}
+#toc a.cur{color:var(--acc)}
+/* 主题切换按钮（右下角，不起眼） */
+#themeBtn{position:fixed;right:10px;bottom:10px;z-index:90;width:34px;height:34px;border-radius:50%;
+  background:var(--card);border:1px solid var(--line);color:var(--mut);font-size:16px;cursor:pointer;
+  opacity:.5;transition:opacity .2s}
+#themeBtn:hover{opacity:1;color:var(--acc)}
 </style></head>
 <body>
+<button id="tocBtn" title="展开/收起目录">☰</button>
+<button id="themeBtn" title="深浅切换">◐</button>
+<div id="toc"></div>
 <header>
  <h1>核物理支线：相对论平均场（RMF）· 对称能 · 中子星</h1>
  <p class="lead">本页是《从原子到磁力仪》原子主线的支线。原子主线讲"碱金属蒸气里单个原子的自旋怎么被光、被缓冲气体、被自旋交换摆布"；这条支线把镜头拉回原子核内部，讲"一堆核子如何靠介子交换场凝聚成核，又如何在极端密度下坍缩成中子星"。两条线一个极静、一个极致密，共享同一种工程直觉：先建最小可算的模型，再一层层加物理，每一步都用观测校准。</p>
@@ -307,6 +339,7 @@
  <p>往下可扩展的方向：把对称能抛物近似换成真正的 β 平衡求解（含 μ 子与 crust 段）；给 σ 场加密度依赖耦合（DD-ME 类）以软化高密度 EOS；把观测约束做成自动拟合（在 M_TOV、Λ、R 上同时打分）。本页的求解器结构（自洽循环 + 表插值 TOV）已为这些扩展留好接口。</p>
  <div class="links">
   <a href="index.html">← 返回原子主线（自底向上系统性介绍）</a>
+  <a href="nuclear_experiments.html">实验支线：核物质与中子星实验（地面实验室到宇宙实验室）↗</a>
   <a href="https://wadesha.github.io/nuclear-physics-rmf-eos/" target="_blank" rel="noopener">核物理研究线（独立页，RMF / 对称能 / 中子星）↗</a>
  </div>
 </section>
@@ -536,5 +569,36 @@ function runTOV(){
     "\n（教学参数集的对称 EOS 偏硬，M_TOV 基值高于观测；旋钮演示的是软化机制的方向。）";
 }
 runTOV();
+</script>
+<script>
+(function(){
+  var KEY='siteTheme';
+  function apply(t){document.body.setAttribute('data-theme',t);}
+  try{var saved=localStorage.getItem(KEY);if(saved==='light')apply('light');}catch(e){}
+  var tb=document.getElementById('themeBtn');
+  tb.addEventListener('click',function(){
+    var cur=document.body.getAttribute('data-theme')==='light'?'dark':'light';
+    apply(cur);try{localStorage.setItem(KEY,cur);}catch(e){}
+  });
+  var toc=document.getElementById('toc'),btn=document.getElementById('tocBtn');
+  if(toc&&btn){
+    var links=[];
+    document.querySelectorAll('main section,header').forEach(function(sec){
+      var h=sec.querySelector('h2,header h1');if(sec.id&&h){
+        var a=document.createElement('a');a.href='#'+sec.id;a.textContent=h.textContent;
+        toc.appendChild(a);links.push(a);
+      }
+    });
+    btn.addEventListener('click',function(){toc.classList.toggle('open');});
+    toc.addEventListener('click',function(e){if(e.target.tagName==='A')toc.classList.remove('open');});
+    window.addEventListener('scroll',function(){
+      var cur=null;
+      document.querySelectorAll('main section').forEach(function(sec){
+        if(sec.getBoundingClientRect().top<120)cur=sec.id;
+      });
+      links.forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+cur);});
+    });
+  }
+})();
 </script>
 </body></html>
