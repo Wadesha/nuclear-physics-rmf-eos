@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>核物理研究线：相对论平均场 / 对称能 / 中子星（2012）</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --card2:#1d2129; --line:#262b34;
+    --fg:#e6e6e6; --mut:#9aa4b2; --acc:#7dd3fc; --acc2:#fca5a5; --grn:#86efac;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.75;font-size:16px}
+  a{color:var(--acc);text-decoration:none}
+  a:hover{text-decoration:underline}
+  /* layout */
+  .wrap{display:flex;max-width:1180px;margin:0 auto}
+  nav{position:sticky;top:0;align-self:flex-start;height:100vh;overflow:auto;
+    width:260px;flex:0 0 260px;padding:28px 18px;border-right:1px solid var(--line);background:var(--bg)}
+  nav h2{font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px}
+  nav ol{list-style:none;margin:0;padding:0;counter-reset:s}
+  nav li{counter-increment:s;margin:2px 0}
+  nav a{display:block;padding:5px 10px;border-radius:7px;color:var(--mut);font-size:14px}
+  nav a:before{content:counter(s) ". ";color:#5b6472}
+  nav a:hover{background:var(--card);color:var(--fg);text-decoration:none}
+  main{flex:1;padding:36px 40px 90px;min-width:0}
+  header.hero{padding:30px 0 18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+  header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.01em}
+  header.hero p{color:var(--mut);margin:6px 0;max-width:760px}
+  .tag{display:inline-block;background:var(--card);border:1px solid var(--line);
+    color:var(--acc);padding:2px 10px;border-radius:999px;font-size:12px;margin-right:6px}
+  section{margin:0 0 30px;scroll-margin-top:18px}
+  section h2{font-size:23px;margin:0 0 6px;border-left:4px solid var(--acc);padding-left:12px}
+  section h3{font-size:17px;color:#cdd5e0;margin:22px 0 6px}
+  p{margin:10px 0}
+  .lead{color:var(--mut)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .card.g{background:linear-gradient(180deg,#15211c,#171a21);border-color:#234}
+  .card.b{background:linear-gradient(180deg,#1a2230,#171a21);border-color:#243}
+  .formula{font-family:var(--mono);background:#0b0d11;border:1px solid var(--line);
+    border-radius:8px;padding:10px 14px;margin:10px 0;color:#d7e3f4;overflow-x:auto;font-size:14.5px}
+  .note{font-size:13.5px;color:var(--mut);border-left:3px solid #334;padding:4px 0 4px 12px;margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:24px}
+  li{margin:5px 0}
+  /* layered diagram */
+  .stack{display:flex;flex-direction:column;gap:0;margin:18px 0}
+  .layer{border:1px solid var(--line);background:var(--card);padding:14px 18px}
+  .layer:first-child{border-radius:12px 12px 0 0}
+  .layer:last-child{border-radius:0 0 12px 12px}
+  .layer+.layer{border-top:none}
+  .layer .lt{font-weight:700;color:var(--acc);font-size:14px}
+  .layer .ld{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .branch{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .branch .b{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--card2)}
+  .branch .b h4{margin:0 0 6px;color:var(--acc2);font-size:15px}
+  .branch .b p{margin:0;font-size:13.5px;color:var(--mut)}
+  code{font-family:var(--mono);background:#0b0d11;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13.5px;color:#cbd5e1}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  th{background:var(--card2);color:var(--mut)}
+  .filelist{font-family:var(--mono);font-size:13px;color:#b9c2d0;background:#0b0d11;
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;white-space:pre-wrap;word-break:break-all}
+  .kbd{color:var(--acc)}
+  .footer{color:var(--mut);font-size:13px;border-top:1px solid var(--line);margin-top:40px;padding-top:16px}
+
+  /* ---- simulation section ---- */
+  .term{font-family:var(--mono);font-size:12.8px;line-height:1.55;background:#08090c;
+    border:1px solid #223;border-radius:8px;padding:12px 14px;overflow-x:auto;color:#c7d2de;
+    white-space:pre;margin:10px 0}
+  .term .ok{color:var(--grn)} .term .hi{color:#fde68a} .term .cm{color:#6b7480}
+  .term .ttl{color:var(--acc)}
+  .src{font-family:var(--mono);font-size:12.5px;line-height:1.5;background:#0b0d11;
+    border:1px solid var(--line);border-radius:8px;padding:11px 13px;overflow-x:auto;
+    color:#a8b6c8;white-space:pre;margin:8px 0}
+  .src .kw{color:#c792ea} .src .nu{color:#f78c6c} .src .cc{color:#5f6b7a}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+  @media(max-width:900px){.two{grid-template-columns:1fr}}
+  .demo{background:linear-gradient(180deg,#141b24,#12151b);border:1px solid #26333f;
+    border-radius:12px;padding:14px 16px;margin:14px 0}
+  .demo h4{margin:0 0 10px;color:var(--grn);font-size:15px;
+    display:flex;align-items:center;gap:8px}
+  .demo h4:before{content:"▶";font-size:11px;color:var(--grn)}
+  .ctl{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:8px 0 12px}
+  .ctl label{font-size:13px;color:var(--mut);display:flex;align-items:center;gap:8px}
+  .ctl input[type=range]{width:150px;accent-color:var(--acc)}
+  .ctl select,.ctl button{background:var(--card2);color:var(--fg);border:1px solid var(--line);
+    border-radius:7px;padding:4px 10px;font-size:13px;font-family:inherit;cursor:pointer}
+  .ctl button:hover{border-color:var(--acc);color:var(--acc)}
+  .val{font-family:var(--mono);color:var(--acc);min-width:58px;display:inline-block}
+  canvas{width:100%;height:auto;display:block;background:#0a0c10;
+    border:1px solid var(--line);border-radius:8px}
+  .out{font-family:var(--mono);font-size:13px;color:#c7d2de;margin-top:10px;
+    background:#0a0c10;border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+    white-space:pre-wrap}
+  .out b{color:var(--grn)} .out i{color:#fde68a;font-style:normal}
+  .badge{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;
+    border:1px solid #2f3d4c;color:var(--mut);margin-left:8px;font-weight:400}
+  @media(max-width:860px){nav{display:none}main{padding:24px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<main>
+<header class="hero">
+  <h1>核物理研究线：相对论平均场 / 对称能 / 中子星（2012）</h1>
+  <p class="lead">这是从《<a href="https://wadesha.github.io/atomic-physics-topics-intro/">从原子到磁力仪：一份自底向上的系统性介绍</a>》中拆出的<b>核物理支线</b>（原第 12 节）。
+  那一份系统以原子磁强计为主线；这里单独展开作者在 2012 年（PKU 时期）的核物理研究：相对论平均场 RMF、对称能、中子星。
+  用与原子系统同样"自底向上"的方式展开，并尽量锚定作者自己留下的材料。</p>
+</header>
+
+  <h2>核物理研究线：相对论平均场 / 对称能 / 中子星（2012）</h2>
+  <p>同一份 ACADEMIC 档案里还藏着一条与原子磁强计<b>完全不同</b>的研究线——核物理，集中在 2012 年（PKU 时期）。它的地基是
+  <b>相对论平均场（RMF）理论</b>与<b>核物质状态方程（EOS）</b>，对象从有限核一直推到中子星。下面用本页同样的"自底向上"方式展开，
+  并尽量用作者自己 2012 留下的材料（<code>201208.tex</code>、题名为"在相对论平均场框架内研究软化对称能对核性质的影响及砹缺中子同位素的形状共存"的课题、TM1/FSUGold/DD-MEδ 阅读作业）来锚定。</p>
+
+  <h3>1. RMF 框架：从 Walecka σ-ω 模型说起</h3>
+  <p>核子并非自由粒子，在核介质里其性质被"介质修正"。Walecka <b>σ-ω 模型</b>用标量 σ 介子（产生吸引、压低有效质量 m*&lt;m）与矢量 ω 介子（产生排斥）描述核力的相对论平均场。
+  有效核子质量越小，意味着标量场越强。作者 2012 的 <code>201208.tex</code> 正是这套模型的<b>数值演练</b>：</p>
+  <div class="card b">
+    <p>给定核物质饱和点参数（如饱和密度相关项 267.1、核子/原子质量比 939/197），<b>自洽求解有效质量 ms</b>，
+    再对动量空间积分 <code>r²·√(r²+t²)</code> 算出<b>能量密度 e</b> 与<b>压强 p</b>。这就是 RMF 下核物质 EOS 的一个个状态点——
+    和《从原子到磁力仪》的"模拟演示"一节（把源码跑起来，见 <a href="https://wadesha.github.io/atomic-physics-topics-intro/#sim">主站</a>）是同一种精神：<b>把哈密顿量写成可解形式 → 数值求解 → 得到状态点</b>。</p>
+  </div>
+
+  <h3>2. 对称能与其"软化"</h3>
+  <p>核物质 EOS 可拆出<b>对称能</b>项（与同位旋不对称度 δ 相关，∝ S(ρ)·δ²）。对称能在饱和点的斜率 L 与曲率 K_sym 决定了中子皮厚度、中子星壳层等可观测量。
+  作者 2012 的自有课题正是：<b>在 RMF 中让对称能随密度"软化"（斜率 L 变小），考察它对核性质的影响，并研究缺中子砹(At)同位素的"形状共存"</b>——
+  即同一核的基态可同时出现球形与形变两种形状。这是 RMF 应用于丰中子核结构的话题。</p>
+
+  <h3>3. 有效相互作用参数集：TM1 / FSUGold / DD-MEδ</h3>
+  <p>RMF 不是唯一一套参数，不同参数集适配不同现象。作者 2012 的文献阅读聚焦三者（对应阅读作业 <code>TM1.docx</code>、<code>DD-MEδ.docx</code>）：</p>
+  <ul>
+    <li><b>TM1</b>：含非线性 ω 项与 ρ 项，常用于相对论重离子碰撞与有限核；</li>
+    <li><b>FSUGold</b>（Todd-Rutel &amp; Piekarewicz, <i>PRL</i> <b>95</b>, 122501, 2005）：在 NL3 基础上加入 ρ-ω 混合项，<b>专门准确标定对称能与中子星性质</b>。
+    Sheng &amp; Ren（<i>EPJA</i> <b>46</b>, 241, 2010）用 FSUGold 做形变 RMF，成功复现 Sn/Te/Xe/Ba（Z=50）同位素的基态结合能、两中子分离能、四极形变与均方根电荷半径；</li>
+    <li><b>DD-MEδ</b>：密度依赖介子-核子耦合 + δ 介子，改善同位旋与有限核描述。</li>
+  </ul>
+  <p class="note">这三个参数集正是"同一个 RMF 框架、不同标定目标"的范例：TM1 偏重高密碰撞，FSUGold 偏重对称能/中子星，DD-MEδ 偏重同位旋。标定目标不同，状态方程就不同，中子星的最大质量也随之改变。</p>
+
+  <h3>4. 从中子星到有效场论</h3>
+  <p>把 RMF EOS 推向高密，即得到<b>中子星状态方程</b>：压强 p(ρ)、质量-半径关系、最大质量（"2 太阳质量中子星"对对称能构成强约束）。
+  更深一层，Paeng &amp; Rho（arXiv:1002.3022《Toward an Effective Field Theory for Cold Compressed Baryonic Matter》）用
+  <b>手征有效场论 + BR 标度（BR scaling）</b>从零密度外推到核物质乃至致密星，强调隐藏局域对称与双重分馏（double decimation）——这是 RMF 之上更"第一性原理"的框架。
+  而 Landau / Gibbs / Boltzmann / Fermi 等人的<b>统计物理</b>（见作者 2012 的《统计物理》阅读）是这些有限温度/有限密度分布的公共地基，与原子系统那套"共用地基"（见 <a href="https://wadesha.github.io/atomic-physics-topics-intro/#b0">主站</a>）一脉相承。</p>
+
+  <h3>5. 这条线与原子线有什么关系</h3>
+  <p>表面上无关：一条是 eV 尺度的原子蒸气磁强计，一条是 MeV–GeV 尺度的核物质。但<b>方法同源</b>——都把哈密顿量写成平均场/可解形式，对角化或数值求解，再与实验对照；
+  都用状态方程/能级图作输出；都依赖精细的相互作用标定。这也是同一份 ACADEMIC 档案能把两者收在一起的原因。</p>
+  <h3>6. 原始材料与延伸阅读</h3>
+  <p>本节尽量锚定作者本人 2012 留下的材料，便于回溯：</p>
+  <ul>
+    <li><b>作者本人（2012）</b>：《201208》LaTeX 数值演练（Walecka/RMF 下核物质 EOS：自洽解有效质量、积分算能量密度 e 与压强 p）；自有课题"在相对论平均场框架内研究软化对称能对核性质的影响及砹缺中子同位素的形状共存"。</li>
+    <li><b>Todd-Rutel &amp; Piekarewicz</b>, <i>PRL</i> <b>95</b>, 122501 (2005)：FSUGold 参数集（在 NL3 上加 ρ-ω 混合项，专门标定对称能与中子星性质）。</li>
+    <li><b>Sheng &amp; Ren</b>, <i>EPJA</i> <b>46</b>, 241 (2010)：用 FSUGold 做形变 RMF，复现 Sn/Te/Xe/Ba（Z=50）同位素的基态结合能、两中子分离能、四极形变与均方根电荷半径。</li>
+    <li><b>Paeng &amp; Rho</b>, arXiv:1002.3022 (2010)：《Toward an Effective Field Theory for Cold Compressed Baryonic Matter》——手征有效场论 + BR 标度，从零密度外推到核物质与致密星。</li>
+    <li><b>阅读作业</b>：TM1 / FSUGold / DD-MEδ 有效相互作用评述，以及 Landau / Gibbs / Boltzmann / Fermi 统计物理。</li>
+  </ul>
+
+<div class="footer">
+  核物理支线独立页 · 主线见 <a href="https://wadesha.github.io/atomic-physics-topics-intro/">从原子到磁力仪</a>。
+  数值与结论请以原始文献为准。
+</div>
+</main>
+</div>
+</body>
+</html>
