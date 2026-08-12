@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>核物理专题：相对论平均场（RMF）· 对称能 · 中子星 —「从原子到磁力仪」学习体系延伸</title>
+<title>核物理专题：相对论平均场（RMF）· 对称能 · 中子星</title>
 <style>
- :root{--bg:#0f1115;--card:#171a21;--line:#23262d;--tx:#e6e6e6;--mut:#9aa4b2;--acc:#7dd3fc;--warn:#f59e0b;--ok:#34d399;}
+ :root{--bg:#0f1115;--card:#171a21;--line:#23262d;--tx:#e6e6e6;--mut:#9aa4b2;--acc:#7dd3fc;--warn:#f59e0b;--ok:#34d399;--sideb:#7dd3fc;}
  *{box-sizing:border-box;}
  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.7;}
  header{padding:48px 28px 28px;max-width:1080px;margin:0 auto;}
@@ -31,7 +31,7 @@
  th{color:var(--mut);font-weight:600;background:#13171e;}
  .note{font-size:13px;color:var(--mut);border-left:3px solid var(--warn);padding:6px 12px;margin:12px 0;background:#1a1710;}
  .side{font-size:13px;color:#c9b8a0;border-left:3px solid #c084fc;padding:8px 14px;margin:14px 0;background:#191226;}
- .side b{color:#d8b4fe;}
+ .side b{color:var(--sideb);}
  .intu{font-size:15px;color:#f0abfc;font-weight:600;margin:0 0 10px;}
  .glos dt{color:var(--acc);font-weight:600;margin-top:10px;}
  .glos dd{color:var(--mut);margin:2px 0 0;}
@@ -45,17 +45,44 @@
 /* 浅色主题 */
 body[data-theme="light"]{
   --bg:#f7f8fa;--card:#ffffff;--line:#dde1e7;--tx:#1a2029;--mut:#5a6472;
-  --acc:#0284c7;--warn:#b45309;--ok:#15803d;
+  --acc:#0284c7;--warn:#b45309;--ok:#15803d;--sideb:#7c3aed;
 }
 body[data-theme="light"] p{color:#2a3340}
 body[data-theme="light"] .lead{color:#4a5560}
 body[data-theme="light"] code{background:#eef1f5;color:#374151}
 body[data-theme="light"] .formula{background:#f1f3f6;color:#1f2937}
 body[data-theme="light"] .note{background:#fdf6e3;border-color:#e5c97a}
-body[data-theme="light"] .side{border-color:#c9b8ec}
+body[data-theme="light"] .side{background:#f4eefb;border-color:#c9b8ec;color:#5b4a6b}
+body[data-theme="light"] .side b{color:var(--sideb) !important;}
 body[data-theme="light"] .glos{background:#f1f3f6;border-color:#dde1e7}
 body[data-theme="light"] th{background:#eef1f5}
 body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
+body[data-theme="light"] .demo{background:linear-gradient(180deg,#ffffff,#f3f5f8);}
+body[data-theme="light"] .out{background:#f1f3f6;color:#374151;}
+body[data-theme="light"] .intu{color:#c026d3;}
+/* 个人化面板 / 进度 / 自测 / 猜数字 */
+.me{background:linear-gradient(135deg,#1a1530,#141826);border:1px solid #3a2f5a;border-radius:14px;padding:16px 18px;margin:16px 0;}
+body[data-theme="light"] .me{background:linear-gradient(135deg,#f3eefe,#eef3ff);border-color:#d9c8f5;}
+.me b{color:#c4b5fd;}
+.me label.ctrl{background:#0f0c1a;padding:6px 8px;border-radius:8px;border:1px solid #2a2440;}
+body[data-theme="light"] .me label.ctrl{background:#fff;border-color:#e2d8f7;}
+.me input{width:92px;background:#0b0814;color:#e6e6e6;border:1px solid #3a2f5a;border-radius:6px;padding:5px 7px;font-size:14px;}
+body[data-theme="light"] .me input{background:#fff;color:#1a2029;border-color:#cdbef0;}
+.meout{margin-top:12px;font-size:14px;line-height:1.95;color:#e8e0ff;}
+body[data-theme="light"] .meout{color:#4a3b6b;}
+.guess{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 2px;font-size:13px;color:var(--mut);}
+.guess input{width:96px;background:#0b0e13;color:#cbd5e1;border:1px solid var(--line);border-radius:6px;padding:5px 7px;}
+body[data-theme="light"] .guess input{background:#fff;color:#1a2029;border-color:#cdd4dd;}
+.guess button{background:#a78bfa;color:#1a1030;}
+.guess .gres{font-size:13px;font-weight:600;}
+.quiz .q{margin:14px 0;}
+.quiz .q b{color:var(--tx);}
+.quiz .opt{display:block;margin:4px 0;padding:7px 10px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:14px;}
+.quiz .opt:hover{border-color:var(--acc);}
+.quiz .opt.sel{border-color:var(--acc);background:#11131c;}
+body[data-theme="light"] .quiz .opt.sel{background:#eef3ff;}
+.qres{margin-top:12px;font-size:14px;line-height:1.8;}
+.qres .ok{color:var(--ok);} .qres .no{color:#fca5a5;}
 /* 顶部可折叠目录 */
 #tocBtn{position:fixed;top:10px;right:10px;z-index:90;background:transparent;border:1px solid var(--line);
   color:var(--mut);border-radius:6px;font-size:14px;padding:3px 9px;cursor:pointer;opacity:.55;transition:opacity .2s}
@@ -78,8 +105,19 @@ body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
 <div id="toc"></div>
 <header>
  <h1>核物理专题：相对论平均场（RMF）· 对称能 · 中子星</h1>
- <p class="lead">本页与《从原子到磁力仪》原子主线同属一套学习体系，是一条独立的核物理专题线。原子主线讲"碱金属蒸气里单个原子的自旋怎么被光、被缓冲气体、被自旋交换摆布"；这条核物理线把镜头拉回原子核内部，讲"一堆核子如何靠介子交换场凝聚成核，又如何在极端密度下坍缩成中子星"。两条线一个极静、一个极致密，共享同一种工程直觉：先建最小可算的模型，再一层层加物理，每一步都用观测校准。</p>
- <p>写法与主线一致：<b>自底向上</b>。前四节从"核物理怎么数数"开始，把度量衡、液滴模型、费米气体、相对论多体逐层搭好；之后进入 RMF 自洽求解、对称能、状态方程、中子星 TOV——每一步都配一个能当场算出数字的交互 demo，所有数字由本页内置求解器实时计算。</p>
+ <p class="lead">这一页讲核物理：一堆核子如何靠介子交换场凝聚成原子核，又如何在极端密度下坍缩成中子星。写法自底向上——先建最小可算的模型，再一层层加物理，每一步都用观测校准；所有数字由本页内置求解器实时计算。</p>
+ <div class="side"><b style="color:#7dd3fc">这一篇和你有什么关系：</b>核物理不是课本里的事，它就绕着你转——① 你手上婚戒或首饰里的<b>金</b>，是两颗中子星相撞（2017 年 GW170817 事件）用 r-过程"炼"出来的，比地球还古老，本页后面的中子星与元素合成讲的就是它；② 你每天用的<b>GPS</b> 准不准，取决于有没有修掉广义相对论的钟差——卫星原子钟每天比地面快约 38.6 微秒，1 纳秒偏差就是 30 厘米定位误差，不修正一天能漂 11 公里，而这正是本页 TOV 那一节的同一套爱因斯坦引力；③ 你吃的一根<b>香蕉</b>≈0.078 微希沃特辐射剂量（来自钾-40 的天然放射性），"核"离你没那么远；④ 你或家人做过的<b>核医学</b>扫描（全球每年超 4000 万人次，锝-99m 约占诊断八成，PET/CT、镥-177 治疗一体）就是同位素在帮你；⑤ 你呼吸吃饭的能量源头<b>太阳</b>，是个靠 E=mc² 把质量变能量的聚变炉——本页讲"核子靠质量亏损黏在一起"，和太阳烧饭是同一回事。一句话：核物理 = 你身上的金、手机里的定位、嘴里的香蕉、医院里的扫描、碗里的阳光。</div>
+ <div class="me" id="mePanel">
+  <b>▌这是关于【你】的——填一下，后面每个数字都会跟着你变</b>
+  <div class="row" style="margin-top:10px">
+   <label class="ctrl">体重 (kg)<input id="meW" type="number" min="1" value="65"></label>
+   <label class="ctrl">身高 (cm)<input id="meH" type="number" min="50" value="170"></label>
+   <label class="ctrl">今天吃了几根香蕉<input id="meB" type="number" min="0" value="1"></label>
+   <label class="ctrl">首饰金重 (g)<input id="meG" type="number" min="0" value="5"></label>
+  </div>
+  <div class="meout" id="meOut"></div>
+ </div>
+ <p>这一页的写法一以贯之：<b>自底向上</b>。前四节从"核物理怎么数数"开始，把度量衡、液滴模型、费米气体、相对论多体逐层搭好；之后进入 RMF 自洽求解、对称能、状态方程、中子星 TOV——每一步都配一个能当场算出数字的交互 demo，所有数字由本页内置求解器实时计算。</p>
 </header>
 <main>
 
@@ -117,7 +155,7 @@ body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
  <p class="intu">直觉：原子核比原子小十万倍，能量却大几百万倍。核物理换了一把"尺子"（fm）和一把"秤"（MeV），是因为原来的单位在这里读起来全是天文数字。</p>
  <p>进核物理之前，先换一套单位。原子物理用 nm 和 eV；原子核小得多、也"硬"得多，需要 fm 和 MeV。</p>
  <table>
-  <tr><th>量</th><th>原子（主线）</th><th>原子核（本专题）</th></tr>
+  <tr><th>量</th><th>原子</th><th>原子核（本专题）</th></tr>
   <tr><td>尺度</td><td>≈ 0.1 nm = 10⁻¹⁰ m</td><td>≈ 1–7 fm = 10⁻¹⁵–10⁻¹⁴ m（小 5 个数量级）</td></tr>
   <tr><td>能量标度</td><td>电离能 ≈ 几 eV</td><td>结合能 ≈ 几 MeV–几十 MeV（大 6–7 个数量级）</td></tr>
   <tr><td>典型时间</td><td>光学跃迁 ns</td><td>核振动/巨共振 10⁻²²–10⁻¹⁸ s</td></tr>
@@ -170,7 +208,7 @@ body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
  </table>
  <p>关键结论一：<b>即使温度为零，费米气体也有压强（简并压）</b>——泡利原理不许粒子挤进已占的态。白矮星靠电子简并压撑住，中子星靠中子简并压+强相互作用压撑住。这是第 12 节 TOV 方程的物理前提。</p>
  <p>关键结论二：<b>核内平均动能 ≈ 22 MeV，占结合能（约 16 MeV/A）的 ~1.4 倍</b>。核子不是"安静的"，而是高速运动的费米海——任何忽略动能的模型都注定失败。RMF 里处理动能的工具就是<b>费米积分</b>（标量密度 ρ_s = γ/(2π²)∫₀^{k_F} p²(M*/E) dp），第 8 节会现场算。</p>
- <div class="side"><b>周边 · 从白矮星到中子星：一场"占座"的战争</b>恒星烧完燃料后，靠什么撑住自己不被引力压塌？第一道防线是<b>电子简并压</b>——电子也是费米子，被挤到极限后"宁可死也不让座"，这就是白矮星。但如果质量超过钱德拉塞卡极限（约 1.4 倍太阳质量），电子压扛不住，电子被压进原子核和质子结合成中子——剩下的是一颗几乎全由中子构成的星，直径只有 ~20 公里，却装着 1–2 个太阳的质量。<b>1967 年</b>，天文学家发现脉冲星（快速自转、规律发射射电脉冲的中子星），从"理论上存在"变成"亲眼所见"。记住这条链：简并压（第 3 节）→ 中子星（第 12 节）→ 观测（第 13 节），是这一页少数"一路通到底"的主线。</div>
+ <div class="side"><b>周边 · 从白矮星到中子星：一场"占座"的战争</b>恒星烧完燃料后，靠什么撑住自己不被引力压塌？第一道防线是<b>电子简并压</b>——电子也是费米子，被挤到极限后"宁可死也不让座"，这就是白矮星。但如果质量超过钱德拉塞卡极限（约 1.4 倍太阳质量），电子压扛不住，电子被压进原子核和质子结合成中子——剩下的是一颗几乎全由中子构成的星，直径只有 ~20 公里，却装着 1–2 个太阳的质量。<b>1967 年</b>，天文学家发现脉冲星（快速自转、规律发射射电脉冲的中子星），从"理论上存在"变成"亲眼所见"。记住这条链：简并压（第 3 节）→ 中子星（第 12 节）→ 观测（第 13 节），是这一页少数"一路通到底"的主脉络。</div>
 </section>
 
 <section id="s4">
@@ -335,10 +373,9 @@ body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
  <p class="intu">直觉：现在回头看，第 1 到 13 节其实在回答同一句话——"一堆核子怎么聚成核、又怎么塌成星"。把链首尾相连，就是本页的全部。</p>
  <p>这条核物理线里所有模型——度量衡、液滴模型、费米气体、平均场、σ/ω/ρ 介子交换、自洽循环、对称能、TOV——构成一条完整的链：</p>
  <p>① 液滴模型告诉你"结合能曲线长什么样"（B/A 峰在铁）；② 费米气体告诉你"物质为什么硬"（简并压）；③ RMF 告诉你"核子在介质里怎么变轻"（有效质量）；④ 对称能告诉你"中子富集会付出什么代价"（E_sym·δ²）；⑤ EOS 把微观能量密度翻译成压强 P(ε)；⑥ TOV 把 P(ε) 翻译成可观测的星体质量与半径。同一套介子耦合参数，既能算地面核的结合能，也能外推到数倍饱和密度的星核，再接受天文观测的审判。</p>
- <p>原子主线里的 SERF 磁力仪追求的是"安静到能读出单个自旋"；这条核物理线追求的是"硬到能撑住两太阳质量却软到不违反引力波"——一个极静、一个极致密，共享"先建可算模型、再用观测校准"的同一套工程直觉。这也是本页所有数字都由现场求解器实时计算、而不是抄文献结论的原因：模型可复现，误差可归因，下一步才可加。</p>
+ <p>这一页追求的是"硬到能撑住两太阳质量、却软到不违反引力波约束"的核物质状态方程——从液滴模型到 RMF 自洽、从对称能到 TOV，每一步都用观测（J0740、GW170817、NICER）校准。这也是本页所有数字都由现场求解器实时计算、而不是抄文献结论的原因：模型可复现，误差可归因，下一步才可加。</p>
  <p>往下可扩展的方向：把对称能抛物近似换成真正的 β 平衡求解（含 μ 子与 crust 段）；给 σ 场加密度依赖耦合（DD-ME 类）以软化高密度 EOS；把观测约束做成自动拟合（在 M_TOV、Λ、R 上同时打分）。本页的求解器结构（自洽循环 + 表插值 TOV）已为这些扩展留好接口。</p>
  <div class="links">
-  <a href="index.html">← 返回原子主线（自底向上系统性介绍）</a>
   <a href="nuclear_experiments.html">实验支线：核物质与中子星实验（地面实验室到宇宙实验室）↗</a>
   <a href="element_origins.html">专题：元素起源（你身体里的原子从哪来）↗</a>
   <a href="gravitational_waves.html">专题：引力波与多信使天文学（GW170817）↗</a>
@@ -380,9 +417,15 @@ body[data-theme="light"] tr:nth-child(even) td{background:#f3f5f8}
  </dl>
 </section>
 
+<section id="quiz">
+ <h2>16. 自测：你真的把"和你有关"那条线串起来了吗？</h2>
+ <p class="intu">别急着关——5 道题，看看你有没有抓住这条线：中子星里的金、GPS 里的引力、嘴里的香蕉、身上的核子。</p>
+ <div class="quiz" id="quizBox"></div>
+ <div class="qres" id="quizRes"></div>
+</section>
 </main>
 <footer>
- 本页是《从原子到磁力仪》学习体系下的核物理专题，内容独立完整（RMF / 对称能 / 中子星），按主题自身逻辑自底向上展开，配真实计算的交互 demo。文中模型与参数用于教学演示：σ 场方程取最小正根求解，TOV 用标准 SI 单位数值积分；观测数值引自近十年多信使天文结果（J0740+6620、GW170817、NICER、PREX-II）。
+ 本页讲核物理（RMF / 对称能 / 中子星），按主题自身逻辑自底向上展开，配真实计算的交互 demo。文中模型与参数用于教学演示：σ 场方程取最小正根求解，TOV 用标准 SI 单位数值积分；观测数值引自近十年多信使天文结果（J0740+6620、GW170817、NICER、PREX-II）。
 </footer>
 
 <script>
@@ -442,7 +485,7 @@ function rmfSym(rho){ // rho: fm^-3
 // ---- 对称能（幂律参数化）----
 function esym(rho, s0){ return s0*Math.pow(rho/RHO0,GAMMA); }
 
-// ---- plotting helper（同原子主线）----
+// ---- 通用绘图 helper ----
 function plot(cid, series, opts){
   opts=opts||{}; const cv=document.getElementById(cid); const ctx=cv.getContext("2d");
   const W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
@@ -603,6 +646,99 @@ runTOV();
       links.forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+cur);});
     });
   }
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var G_SI=6.6743e-11, M_SUN=1.98847e30, C=2.99792458e8, G_E=9.80665, AMU=1.66053906660e-27;
+  function sup(n){var s=(n<0?"\u207B":"");String(Math.abs(n)).split("").forEach(function(d){s+="\u2070\u00B9\u00B2\u00B3\u2074\u2075\u2076\u2077\u2078\u2079"[+d];});return s;}
+  function toSci(x){if(x<=0)return"0";var e=Math.floor(Math.log10(x)),m=x/Math.pow(10,e);return m.toFixed(1)+"\u00D710"+sup(e);}
+
+  // ---------- 个人面板：把"和你有关"做成可填、可算、可存 ----------
+  (function(){
+    var KEY="nucMeV1", saved={};
+    try{saved=JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){}
+    ["meW","meH","meB","meG"].forEach(function(id){ if(saved[id]!==undefined) $(id).value=saved[id]; });
+    var tab=buildEOSTable(1.0), best=null;
+    for(var i=0;i<=120;i++){ var rc=0.15+0.45*i/120; var st=tovIntegrate(tab,rc,1.0);
+      if(best===null||Math.abs(st.M-1.4)<Math.abs(best.M-1.4)) best=st; }
+    var Mns=best.M*M_SUN, Rns=best.R*1000;
+    var rs=1-2*G_SI*Mns/(Rns*C*C);
+    var gSurf=G_SI*Mns/(Rns*Rns)/Math.sqrt(rs);
+    function update(){
+      var w=+$("meW").value||0, h=+$("meH").value||0, b=+$("meB").value||0, g=+$("meG").value||0;
+      try{localStorage.setItem(KEY,JSON.stringify({meW:w,meH:h,meB:b,meG:g}));}catch(e){}
+      var mult=gSurf/G_E, wTon=(w*mult)/1000;
+      var doseY=b*365*0.078, pct=doseY/2400*100, nuc=w*1000/AMU;
+      $("meOut").innerHTML=
+        "\u2728 <b>你若真站到中子星表面</b>，"+w+" kg 的你会被压成约 <b style=\"color:#f0abfc\">"+toSci(wTon)+" 吨</b>——引力是你体重的 <b>"+toSci(mult)+" 倍</b>（这颗星 M\u2248"+best.M.toFixed(2)+" M\u2609、R\u2248"+best.R.toFixed(1)+" km）。<br>"+
+        "\uD83C\uDF4C 你一年吃 "+(b*365)+" 根香蕉，辐射剂量约 <b>"+doseY.toFixed(0)+" \u00B5Sv</b>，仅相当于天然本底（2400 \u00B5Sv/年）的 <b>"+pct.toFixed(1)+"%</b>。<br>"+
+        "\u26AA 你身体约由 <b>"+toSci(nuc)+"</b> 个核子组成——每一个都靠本页讲的 \u03C3/\u03C9/\u03C1 介子场黏在一起，少一个你就散了。<br>"+
+        "\uD83D\uDC8D 你首饰里 "+g+" 克金，诞生于约 <b>138\u00D710\u2078 年前</b>的双中子星并合，比地球（46\u00D710\u2078 年）古老得多——你戴的是宇宙的遗物。";
+    }
+    ["meW","meH","meB","meG"].forEach(function(id){ $(id).addEventListener("input",update); });
+    update();
+  })();
+
+  // ---------- 每个 demo 的"先猜后验"：把被动阅读变成主动预测 ----------
+  (function(){
+    function wire(outId,label,targetFn){
+      var out=$(outId); if(!out) return;
+      var box=document.createElement("div"); box.className="guess";
+      box.innerHTML="<span>"+label+"</span><input type=\"number\" step=\"any\" placeholder=\"你的猜测\"><button>\u9A8C\u7B97</button><span class=\"gres\"></span>";
+      out.parentNode.insertBefore(box,out.nextSibling);
+      var inp=box.querySelector("input"), btn=box.querySelector("button"), res=box.querySelector(".gres");
+      btn.addEventListener("click",function(){
+        var g=parseFloat(inp.value);
+        if(isNaN(g)){res.textContent="\u5148\u586B\u4E2A\u6570\u5B57";res.style.color="#f59e0b";return;}
+        var t=targetFn(), dev=Math.abs(g-t)/(Math.abs(t)||1)*100;
+        var hit=Math.abs(g-t)<=Math.max(0.05*Math.abs(t),0.05);
+        res.textContent="\u4F60\u731C "+g+"\uFF0C\u5B9E\u9645 "+t.toFixed(2)+"\uFF0C\u504F\u5DEE "+dev.toFixed(0)+"%。"+(hit?" \u51C6\uFF01":" \u5DEE\u4E00\u70B9\uFF0C\u62D6\u52A8\u4E0A\u65B9\u6ED1\u5757\u518D\u770B\u3002");
+        res.style.color=hit?"#34d399":"#fca5a5";
+      });
+    }
+    wire("d0o","\u5148\u731C\uFF1A\u6DB2\u6EF4\u6A21\u578B\u7ED3\u5408\u80FD\u5CF0\u503C\u5728 A\u2248\uFF1F",function(){var aV=15.8,aS=18.3,aC=0.71,aA=23.2,ap=12,mp={B:-1e9};for(var A=2;A<=240;A++){var Z=Math.round(A/(2+(aC/(2*aA))*Math.pow(A,2/3)));var Bv=aV*A-aS*Math.pow(A,2/3)-aC*Z*Z/Math.pow(A,1/3)-aA*Math.pow(A-2*Z,2)/A;if(A%2===0)Bv+=(Z%2===0?ap/Math.sqrt(A):-ap/Math.sqrt(A));if(Bv/A>mp.B)mp={A:A,B:Bv/A};}return mp.A;});
+    wire("d1o","\u5148\u731C\uFF1A\u9971\u548C\u70B9\u6709\u6548\u8D28\u91CF M*/M\u2248\uFF1F",function(){return rmfSym(0.145).Mstar/MN;});
+    wire("d2o","\u5148\u731C\uFF1A\u5BF9\u79F0\u80FD E_sym(\u03C1\u2080)\u2248\uFF1F MeV",function(){return +$("d2S").value;});
+    wire("d3o","\u5148\u731C\uFF1A\u9971\u548C\u70B9\u538B\u5F3A P(\u03C1\u2080)\u2248\uFF1F MeV/fm\u00B3\uFF08\u63D0\u793A\uFF1A\u22480\uFF09",function(){return 0;});
+    wire("d4o","\u5148\u731C\uFF1A\u8FD9\u6761\u786C EOS \u7684 M_TOV\u2248\uFF1F M\u2609",function(){var g=+$("d4g").value,tab=buildEOSTable(g),Mm=0;for(var i=0;i<=28;i++){var s=tovIntegrate(tab,0.15+0.40*i/28,g);if(s.M>Mm)Mm=s.M;}return Mm;});
+  })();
+
+
+  // ---------- 自测：结尾把"和你有关"那条线考一遍 ----------
+  (function(){
+    var qs=[
+      {q:"\u4E2D\u5B50\u661F\u5E76\u5408\uFF08\u5982 GW170817\uFF09\u7528 r-\u8FC7\u7A0B\u953B\u9020\u4E86\u4F60\u9996\u9970\u91CC\u7684\u4EC0\u4E48\uFF1F",o:["\u94C1","\u91D1\u548C\u94C2","\u78B3","\u6C27"],a:1,e:"\u6B63\u786E\uFF1A\u91D1\u3001\u94C2\u7B49\u91CD\u5143\u7D20\u4E3B\u8981\u5728\u53CC\u4E2D\u5B50\u661F\u5E76\u5408\u7684\u4E2D\u5B50\u4FF1\u83B7\uFF08r-\u8FC7\u7A0B\uFF09\u91CC\u5408\u6210\uFF0C\u6BD4\u5730\u7403\u53E4\u8001\u3002"},
+      {q:"GPS \u536B\u661F\u4E0A\u7684\u539F\u5B50\u949F\uFF0C\u6BCF\u5929\u56E0\u5E7F\u4E49\u76F8\u5BF9\u8BBA\u6BD4\u5730\u9762\u5FEB\u7EA6\u591A\u5C11\uFF1F",o:["3.86 \u79D2","38.6 \u5FAE\u79D2","0\uFF08\u65E0\u9700\u4FEE\u6B63\uFF09","11 \u516C\u91CC"],a:1,e:"\u6B63\u786E\uFF1A\u7EA6 +38.6 \u00B5s/\u5929\uFF1B\u4E0D\u4FEE\u6B63\u4E00\u5929\u5B9A\u4F4D\u4F1A\u6F02\u7EA6 11 km\u2014\u2014\u8FD9\u6B63\u662F\u672C\u9875 TOV \u7528\u7684\u540C\u4E00\u5957\u7231\u56E0\u65AF\u5766\u5F15\u529B\u3002"},
+      {q:"\u4E00\u6839\u9999\u8549\u7684\u5929\u7136\u653E\u5C04\u6027\u4E3B\u8981\u6765\u81EA\u54EA\u79CD\u6838\u7D20\uFF1F",o:["\u78B3-14","\u94BE-40","\u94C0-238","\u6C22"],a:1,e:"\u6B63\u786E\uFF1A\u94BE-40\uFF08\u00B9K\u2074\u2070\uFF09\uFF0C\u4E00\u6839\u9999\u8549\u7EA6 0.078 \u00B5Sv\u3002"},
+      {q:"\u4E3A\u4EC0\u4E48\u6838\u7269\u8D28\u201C\u786C\u201D\u5230\u80FD\u6491\u4F4F\u4E24\u592A\u9633\u8D28\u91CF\u4E0D\u5835\u57AE\uFF1F",o:["\u7535\u78C1\u5438\u5F15","\u8D39\u7C73\u6C14\u4F53\u6CE1\u5229\u538B\u529B","\u70ED\u81A8\u80C0","\u8868\u9762\u5F20\u529B"],a:1,e:"\u6B63\u786E\uFF1A\u6838\u5B50\u662F\u4E0D\u53EF\u533A\u5206\u8D39\u7C73\u5B50\uFF0C\u53D7\u6CE1\u5229\u4E0D\u76F8\u5BB9\u539F\u7406\u9650\u5236\uFF0C\u5BC6\u5EA6\u8D8A\u5927\u52A8\u538B\u8D8A\u9AD8\uFF08\u8D39\u7C73\u6C14\u4F53\uFF09\u3002"},
+      {q:"\u672C\u9875 RMF \u91CC\uFF0C\u03C3 \u4ECB\u5B50\u4E3B\u8981\u8D1F\u8D23\u4EC0\u4E48\uFF1F",o:["\u5411\u91CF\u6392\u65A5","\u6807\u91CF\u5438\u5F15","\u540C\u4F4D\u65CB\u533A\u5206","\u7535\u78C1\u4F5C\u7528"],a:1,e:"\u6B63\u786E\uFF1A\u03C3 \u63D0\u4F9B\u4E2D\u957F\u7A0B\u6807\u91CF\u5438\u5F15\uFF0C\u03C9 \u63D0\u4F9B\u5411\u91CF\u6392\u65A5\uFF0C\u03C1 \u7BA1\u5BF9\u79F0\u80FD\u3002"}
+    ];
+    var box=$("quizBox");
+    qs.forEach(function(item,idx){
+      var d=document.createElement("div"); d.className="q";
+      d.innerHTML="<b>"+(idx+1)+". "+item.q+"</b>";
+      item.o.forEach(function(t,oi){
+        var op=document.createElement("label"); op.className="opt";
+        op.innerHTML="<input type=\"radio\" name=\"q"+idx+"\" value=\""+oi+"\"> "+t;
+        d.appendChild(op);
+      });
+      box.appendChild(d);
+    });
+    var btn=document.createElement("button"); btn.textContent="\u5224\u5206"; btn.style.marginTop="6px";
+    box.appendChild(btn);
+    btn.addEventListener("click",function(){
+      var score=0, html="";
+      qs.forEach(function(item,idx){
+        var sel=box.querySelector("input[name=\"q"+idx+"\"]:checked"), ok=sel&&(+sel.value===item.a);
+        if(ok)score++;
+        html+="<div class=\""+(ok?"ok":"no")+"\">"+(ok?"\u2713":"\u2717")+" \u7B2C"+(idx+1)+"\u9898："+(ok?"\u7B54\u5BF9\u4E86\u3002":("\u4F60\u9009\u4E86\u300C"+(sel?item.o[+sel.value]:"\u672A\u7B54")+"\u300D\uFF0C\u6B63\u786E\u662F\u300C"+item.o[item.a]+"\u3002"))+" "+item.e+"</div>";
+      });
+      $("quizRes").innerHTML="<b>\u4F60\u7B54\u5BF9 "+score+" / "+qs.length+" \u9898\u3002</b><br>"+html;
+    });
+  })();
 })();
 </script>
 </body></html>
